@@ -21,7 +21,7 @@ def add_data():
         is_empty = os.stat('DetroitTigersWholesaling.csv').st_size == 0
 
         # Open the CSV file in append mode
-        with open('DetroitTigersWholesaling.csv', 'w', newline='') as dtw:
+        with open('DetroitTigersWholesaling.csv', 'a', newline='') as dtw:
             writer = csv.writer(dtw, delimiter=',')
 
             # Write headers if the file is empty
@@ -141,6 +141,8 @@ for widget in search_frame.winfo_children():
 # Button for parsing through data
 buttonSearch = tkinter.Button(frame, text="Search Data", command= search_data, width = 10)
 buttonSearch.grid(row=3, column=1, sticky="news", padx=5, pady=5)
+
+
 
 
 #Closing Main Loop
