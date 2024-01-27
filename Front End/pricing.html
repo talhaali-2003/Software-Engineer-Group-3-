@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Project Management Company - Pricing</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <script src="index.js"></script>
+  </head>
+<body>
+    <header>
+        <div class="logo-container">
+          <br>
+          <img src="images/NicePng_swiftrage-png_7873644.png" alt="Clearview logo">
+        </div>
+        <nav>
+          <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="Services.html">Services</a></li>
+            <li><a href="pricing.html">Pricing</a></li>
+            <li><a href="listing.html">Listings</a></li>
+            <li><a href="blog.html">Blog</a></li>
+            <li><a href="Contact.html">Contact</a></li>
+          </ul>
+        </nav>
+      </header>
+  <main>
+    <section id="pricing">
+        <h2>Pricing Plans</h2>
+        <div class="container">
+          <div class="pricing-table">
+
+            <div class="pricing-option">
+              <h3>Starter</h3>
+              <p class="price">$100/month</p>
+              <ul>
+                <li>Marketing and Advertising</li>
+                <li>Tenant Screening</li>
+                <li>Rent Collection</li>
+                <li>Basic Maintenance</li>
+              </ul>
+              <button class="btn btn-primary"  onclick="location.href ='https://www.paypal.com/paypalme/MHarkati'">Get Started</button>
+            </div>
+
+            <div class="pricing-option">
+              <h3>Pro</h3>
+              <p class="price">$200/month</p>
+              <ul>
+                <li>Marketing and Advertising</li>
+                <li>Tenant Screening</li>
+                <li>Rent Collection</li>
+                <li>Preventative Maintenance</li>
+                <li>24/7 Emergency Response</li>
+              </ul>
+              <button class="btn btn-primary" onclick="location.href ='https://www.paypal.com/paypalme/MHarkati'">Get Started</button>
+            </div>
+
+            <div class="pricing-option">
+              <h3>Premium</h3>
+              <p class="price">$300/month</p>
+              <ul>
+                <li>Marketing and Advertising</li>
+                <li>Tenant Screening</li>
+                <li>Rent Collection</li>
+                <li>Full Maintenance</li>
+                <li>24/7 Emergency Response</li>
+              </ul>
+              <button class="btn btn-primary" onclick="location.href ='https://www.paypal.com/paypalme/MHarkati'">Get Started</button>
+            </div>
+
+          </div>
+        </div>
+      </section>
+
+      <section class="pricing-section">
+        <h2 class="pricing-heading">Loan Payment Calculator</h2>
+        <div class="pricing-form">
+          <div class="pricing-form-group">
+            <label for="loan-amount">Loan Amount:</label>
+            <input type="number" id="loan-amount" name="loan-amount" value="50000">
+          </div>
+          <div class="pricing-form-group">
+            <label for="interest-rate">Interest Rate:</label>
+            <input type="number" id="interest-rate" name="interest-rate" step="0.01" value="5">
+            <span class="pricing-form-label">%</span>
+          </div>
+          <div class="pricing-form-group">
+            <label for="loan-term">Loan Term:</label>
+            <input type="number" id="loan-term" name="loan-term" value="60">
+            <span class="pricing-form-label">months</span>
+          </div>
+          <button id="calculate-button" class="pricing-button" onclick="calculateLoanPayment()">Calculate Monthly Payment</button>
+        </div>
+        <p id="monthly-payment" class="pricing-result"></p>
+      </section>
+
+  </main>
+
+<footer>
+<p>&copy; 2023 Clearview Property Management</p>
+</footer>
+
+</body>
+</html>
