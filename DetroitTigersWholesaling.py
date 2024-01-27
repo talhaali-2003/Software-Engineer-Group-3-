@@ -21,8 +21,8 @@ def add_data():
         is_empty = os.stat('DetroitTigersWholesaling.csv').st_size == 0
 
         # Open the CSV file in append mode
-        with open('DetroitTigersWholesaling.csv', 'w', newline='') as DTW:
-            writer = csv.writer(DTW, delimiter=',')
+        with open('DetroitTigersWholesaling.csv', 'w', newline='') as dtw:
+            writer = csv.writer(dtw, delimiter=',')
 
             # Write headers if the file is empty
             if is_empty:
@@ -44,6 +44,32 @@ def add_data():
     else:
         # Display error message if fields are not filled
         tkinter.messagebox.showwarning(title="Error", message="YOU DID NOT FILL ALL THE FIELDS.")
+
+#function for searching the inputs to a .csv file
+def search_data():
+    # Product ID info
+    productID = product_id_search_entry.get()
+
+    if productID:
+        with open('DetroitTigersWholesaling.csv', 'r') as search_dtw:
+            reader = csv.DictReader(search_dtw)
+
+            for line in reader:
+                if(line['Product ID'] == productID):
+                    print(line['Product Name'] + " is in inventory with a quantity of " + line['Product Quantity'])
+                else:
+                    print("Product is not in inventory")
+
+        # Display success message
+        tkinter.messagebox.showinfo(title="Success", message="Data successfully Found!")
+
+        # Clear the entry fields after searching data
+        product_id_search_entry.delete(0, 'end')
+
+    else:
+        # Display error message if fields are not filled
+        tkinter.messagebox.showwarning(title="Error", message="YOU DID NOT FILL ALL THE FIELDS.")
+
 # Creating a GUI window
 window = tkinter.Tk()
 window.title("Detroit Tiger Wholesaling Form")
@@ -94,8 +120,28 @@ for widget in company_info_frame.winfo_children():
     widget.grid_configure(padx=10, pady=5)
 
 # Button for adding data
-button = tkinter.Button(frame, text="Add Data", command= add_data)
-button.grid(row=3, column=0, sticky="news", padx=0, pady=5)
+button = tkinter.Button(frame, text="Add Data", command= add_data, width = 10)
+button.grid(row=3, column=0, sticky="news", padx=5, pady=5)
+
+# Creating a labeled frame for Product Search
+search_frame = tkinter.LabelFrame(frame, text="Product Search")
+search_frame.grid(row= 1, column=0, padx=20, pady=10)
+
+# Creating a label and entry for Product ID
+product_id_search_label = tkinter.Label(search_frame, text="Product ID")
+product_id_search_label.grid(row=0, column=1)
+
+product_id_search_entry = tkinter.Entry(search_frame)
+product_id_search_entry.grid(row=1, column=1)
+
+# Adjusting the layout for all widgets in company_info_frame
+for widget in search_frame.winfo_children():
+    widget.grid_configure(padx=10, pady=5)
+
+# Button for parsing through data
+buttonSearch = tkinter.Button(frame, text="Search Data", command= search_data, width = 10)
+buttonSearch.grid(row=3, column=1, sticky="news", padx=5, pady=5)
+
 
 #Closing Main Loop
 window.mainloop()
