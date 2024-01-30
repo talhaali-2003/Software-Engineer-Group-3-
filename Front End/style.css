@@ -114,6 +114,15 @@ padding: 1rem;
 text-align: center;
 }
 
+.footer-link {
+  color: #3498db; /* Set the default color for the hyperlink */
+  text-decoration: none; /* Remove the default underline */
+}
+
+.footer-link:hover {
+  color: #5aa6f7; /* Set the color when the hyperlink is hovered */
+}
+
 @media only screen and (min-width: 768px) {
   .column-layout {
     display: flex;
