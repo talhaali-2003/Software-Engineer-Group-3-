@@ -53,19 +53,58 @@ def search_data():
     if productID:
         with open('DetroitTigersWholesaling.csv', 'r') as search_dtw:
             reader = csv.DictReader(search_dtw)
+            found_flag = False
 
             for line in reader:
                 if(line['Product ID'] == productID):
                     print(line['Product Name'] + " is in inventory with a quantity of " + line['Product Quantity'])
-                else:
-                    print("Product is not in inventory")
+                    found_flag = True
+                    tkinter.messagebox.showinfo(title="Success", message="Data successfully Found!")
 
-        # Display success message
-        tkinter.messagebox.showinfo(title="Success", message="Data successfully Found!")
+            if (found_flag ==  False):
+                print("Product is not in inventory")
+                tkinter.messagebox.showinfo(title="Not Found", message="Product ID not found")
 
         # Clear the entry fields after searching data
         product_id_search_entry.delete(0, 'end')
 
+    else:
+        # Display error message if fields are not filled
+        tkinter.messagebox.showwarning(title="Error", message="YOU DID NOT FILL ALL THE FIELDS.")
+
+#function for removing row of data from a .csv file
+def remove_data():
+    productID = product_id_remove_entry.get()
+    lines_keep = list()
+
+    if productID:
+        with open('DetroitTigersWholesaling.csv', 'r') as remove_dtw:
+            reader = csv.DictReader(remove_dtw)
+            found_flag = False
+
+            # Stores all data except removed one in a list
+            for line in reader:
+                lines_keep.append(line)
+                if (line["Product ID"] == productID):
+                        print(line["Product Name"] + " has been removed")
+                        lines_keep.remove(line)
+                        found_flag = True
+                        tkinter.messagebox.showinfo(title="Success", message="Data successfully removed!")
+
+            if (found_flag == False):
+                    print("Product is not in inventory")
+                    tkinter.messagebox.showinfo(title="Not Found", message="Product ID not found")
+        
+        # Rewrites .CSV from list
+        with open("DetroitTigersWholesaling.csv", "w", newline='') as wrt:
+            writer = csv.writer(wrt)
+            writer.writerow(lines_keep[0].keys())
+            for x in range(len(lines_keep)):
+                writer.writerow(lines_keep[x].values())
+
+        # Clear the entry fields after searching data
+        product_id_remove_entry.delete(0, 'end')
+    
     else:
         # Display error message if fields are not filled
         tkinter.messagebox.showwarning(title="Error", message="YOU DID NOT FILL ALL THE FIELDS.")
@@ -121,28 +160,45 @@ for widget in company_info_frame.winfo_children():
 
 # Button for adding data
 button = tkinter.Button(frame, text="Add Data", command= add_data, width = 10)
-button.grid(row=3, column=0, sticky="news", padx=5, pady=5)
+button.grid(row=1, column=0, sticky="news", padx=5, pady=5)
 
 # Creating a labeled frame for Product Search
 search_frame = tkinter.LabelFrame(frame, text="Product Search")
-search_frame.grid(row= 1, column=0, padx=20, pady=10)
+search_frame.grid(row= 2, column=0, padx=20, pady=10)
 
 # Creating a label and entry for Product ID
 product_id_search_label = tkinter.Label(search_frame, text="Product ID")
-product_id_search_label.grid(row=0, column=1)
+product_id_search_label.grid(row=2, column=0)
 
 product_id_search_entry = tkinter.Entry(search_frame)
-product_id_search_entry.grid(row=1, column=1)
+product_id_search_entry.grid(row=2, column=0)
 
-# Adjusting the layout for all widgets in company_info_frame
+# Adjusting the layout for all widgets in search_frame
 for widget in search_frame.winfo_children():
     widget.grid_configure(padx=10, pady=5)
 
 # Button for parsing through data
 buttonSearch = tkinter.Button(frame, text="Search Data", command= search_data, width = 10)
-buttonSearch.grid(row=3, column=1, sticky="news", padx=5, pady=5)
+buttonSearch.grid(row=3, column=0, sticky="news", padx=5, pady=5)
 
+# Creating a labeled frame for remove data
+remove_frame = tkinter.LabelFrame(frame, text="Remove Data")
+remove_frame.grid(row=2, column=1, padx=20, pady=10)
 
+# Creating a label and entry for Product ID
+product_id_remove_label = tkinter.Label(remove_frame, text="Product ID")
+product_id_remove_label.grid(row=2, column=0)
+
+product_id_remove_entry = tkinter.Entry(remove_frame)
+product_id_remove_entry.grid(row=2, column=0)
+
+# Adjusting the layout for all widgets in remove_frame
+for widget in remove_frame.winfo_children():
+    widget.grid_configure(padx=10, pady=5)
+
+# Button for parsing through data
+buttonRemove = tkinter.Button(frame, text="Remove Data", command= remove_data, width = 5)
+buttonRemove.grid(row=3, column=1, sticky="news", padx=3, pady=3)
 
 
 #Closing Main Loop
