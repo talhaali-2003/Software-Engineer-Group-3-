@@ -80,38 +80,16 @@ margin-left: 1rem;
 margin-bottom: 1rem;
 }
 
-form label {
-display:flex;
-margin-bottom: 0.5rem;
-}
 
-form input, form textarea {
-display: flex;
-width: 100%;
-padding: 0.5rem;
-margin-bottom: 1rem;
-border: 1px solid #ccc;
-border-radius: 0.25rem;
-}
-
-form button {
-background-color: #333;
-color: #fff;
-border: none;
-padding: 0.5rem 1rem;
-border-radius: 0.25rem;
-cursor: pointer;
-}
-
-form button:hover {
-background-color: #000;
-}
 
 footer {
-background-color: #333;
-color: #fff;
-padding: 1rem;
-text-align: center;
+  position: relative;
+  background-color: #333;
+  color: #fff;
+  padding: 1rem;
+  text-align: center;
+  bottom: 0;
+  width: 100%;
 }
 
 .footer-link {
@@ -157,7 +135,7 @@ text-align: center;
 }
 
 
-/*Services*/
+/*Services -> These are for the projects containers*/
 .service-box {
   background-color: #f1f1f1;
   border: 1px solid #ddd;
@@ -203,7 +181,7 @@ header img {
   max-height: 40px;
   width: auto;
   mix-blend-mode: multiply;
-  filter: contrast(1);
+  filter: contrast(1.2);
   
 }
 
@@ -213,62 +191,7 @@ h1 {
   margin-left: 0px;
 }
 
-
-
-
-
-/* Pricing */
-
-/* Pricing Styles */
-#pricing {
-  background-color: #f2f2f2;
-  padding: 50px 0;
-}
-
-#pricing h2 {
-  text-align: center;
-  margin-bottom: 50px;
-}
-
-.pricing-table {
-  display: flex;
-  justify-content: center;
-  flex-wrap: wrap;
-}
-
-.pricing-option {
-  background-color: #fff;
-  border: 1px solid #ddd;
-  border-radius: 5px;
-  width: 300px;
-  padding: 20px;
-  margin: 20px;
-  text-align: center;
-}
-
-.pricing-option h3 {
-  font-size: 24px;
-  margin-bottom: 20px;
-}
-
-.pricing-option p.price {
-  font-size: 36px;
-  font-weight: bold;
-  margin-bottom: 20px;
-}
-
-.pricing-option ul {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-  text-align: center;
-  margin-bottom: 30px;
-}
-
-.pricing-option ul li {
-  padding: 5px 0;
-}
-
+/* Shows the buttons for the projects page */
 .btn {
   background-color: gray;
   color: white;
@@ -288,199 +211,10 @@ h1 {
   background-color: lightgrey;
 }
 
-@media screen and (max-width: 768px) {
-  .pricing-table {
-    flex-direction: column;
-    align-items: center;
-  }
-
-  .pricing-option {
-    margin: 20px 0;
-  }
-}
 
 
-/* Pricing - Loan Payment Calculator */ 
-.pricing-section {
-  background-color: #f7f7f7;
-  border-radius: 5px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  padding: 40px;
-  text-align: center;
-}
 
-.pricing-heading {
-  color: #333;
-  font-size: 36px;
-  margin-bottom: 20px;
-}
-
-.pricing-form {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  margin-bottom: 30px;
-}
-
-.pricing-form-group {
-  align-items: center;
-  display: flex;
-  margin-right: 30px;
-}
-
-.pricing-form-group:last-child {
-  margin-right: 0;
-}
-
-.pricing-form-group label {
-  color: #333;
-  font-size: 18px;
-  margin-right: 10px;
-}
-
-.pricing-form-group input {
-  border: 2px solid #ccc;
-  border-radius: 5px;
-  font-size: 18px;
-  padding: 10px;
-  text-align: center;
-  width: 120px;
-}
-
-.pricing-form-label {
-  color: #333;
-  font-size: 18px;
-  margin-left: 10px;
-}
-
-.pricing-button {
-  background-color: #333;
-  border: none;
-  border-radius: 5px;
-  color: #fff;
-  cursor: pointer;
-  font-size: 18px;
-  padding: 10px 20px;
-  transition: background-color 0.3s ease;
-}
-
-.pricing-button:hover {
-  background-color: #666;
-}
-
-.pricing-result {
-  color: #333;
-  font-size: 24px;
-  margin-top: 30px;
-}
-
-/* Blog */
-
-/* Default styles for blog section */
-#blog {
-  background-color: #f8f8f8;
-  padding: 50px 0;
-}
-
-.blog-post {
-  padding: 20px;
-  background-color: #fff;
-  margin: 10px;
-  border-radius: 5px;
-  box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.3);
-}
-
-.blog-post h3 {
-  margin-top: 0;
-}
-
-.blog-post p {
-  margin-bottom: 10px;
-}
-
-.blog-post a {
-  display: inline-block;
-  padding: 5px 10px;
-  background-color: grey;
-  color: #fff;
-  border-radius: 5px;
-  text-decoration: none;
-}
-
-.blog-post a:hover {
-  background-color:  lightgray;
-}
-
-@media only screen and (max-width: 768px) {
-  #blog {
-    padding: 30px 0;
-  }
-  
-  .blog-post {
-    width: 100%;
-    margin: 10px 0;
-  }
-}
-
-/*Listings*/
-#listing {
-  padding: 80px 0;
-  background-color: #f8f8f8;
-}
-
-.ListingContainer {
-  display: flex;
-  justify-content: center;
-  align-items: stretch;
-  flex-flow: row wrap;
-}
-
-.property {
-  width: 100%;
-  padding: 20px;
-  box-sizing: border-box;
-  display: flex;
-  align-items: center;
-  border-bottom: 1px solid #ddd;
-}
-
-.property img {
-  max-width: 100%;
-  margin-right: 20px;
-  height: 100px;
-  width: 160px;
-}
-
-.property-details h3 {
-  margin-top: 0;
-}
-
-.property-details p {
-  margin-bottom: 10px;
-}
-
-.property-details a {
-  display: inline-block;
-  background-color: grey;
-  color: #fff;
-  text-decoration: none;
-  padding: 10px 20px;
-  border-radius: 5px;
-}
-
-@media screen and (min-width: 768px) {
-  .property {
-    width: 50%;
-  }
-}
-
-@media screen and (min-width: 1200px) {
-  .property {
-    width: 33.33%;
-  }
-}
-
-/* About us - Meet the team section */ 
+/* Meet the team section part of index */ 
 #team {
   padding: 50px 0;
   text-align: center;
