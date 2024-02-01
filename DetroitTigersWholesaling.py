@@ -5,46 +5,55 @@ import csv
 from tkinter import ttk
 import tkinter.messagebox
 
-#function for adding the inputs to a .csv file
+def is_valid_input(input_str):
+    # Define allowed characters, adjust according to your needs
+    allowed_chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789 "
+    return all(char in allowed_chars for char in input_str)
+
 def add_data():
     # Company & Product info
     companyName = company_name_entry.get()
     productID = product_id_entry.get()
+    productType = product_type_combobox.get()
+    productQuantity = quantity_spinbox.get()
+    productName = product_name_entry.get()
 
-    if companyName and productID:
-        # Product Information
-        productType = product_type_combobox.get()
-        productQuantity = quantity_spinbox.get()
-        productName = product_name_entry.get()
+    # Validate inputs for foreign characters
+    if not all(is_valid_input(field) for field in [companyName, productID, productName, productQuantity]):
+        # Display error message
+        tkinter.messagebox.showwarning(title="Error", message="Foreign characters detected. Please use only standard alphanumeric characters.")
+        # Clear the entry fields
+        company_name_entry.delete(0, 'end')
+        product_id_entry.delete(0, 'end')
+        product_type_combobox.set('')  # Reset the combobox
+        quantity_spinbox.delete(0, 'end')
+        product_name_entry.delete(0, 'end')
+        return  # Exit the function
 
+    if companyName and productID and productName and productType and productQuantity:
         # Check if the file is empty (no headers)
         is_empty = os.stat('DetroitTigersWholesaling.csv').st_size == 0
 
         # Open the CSV file in append mode
-        with open('DetroitTigersWholesaling.csv', 'a', newline='') as dtw:
+        with open('DetroitTigersWholesaling.csv', 'a', newline='', encoding='utf-8') as dtw:
             writer = csv.writer(dtw, delimiter=',')
-
             # Write headers if the file is empty
             if is_empty:
                 writer.writerow(['Company Name', 'Product ID', 'Product Name', 'Product Type', 'Product Quantity'])
-
             # Write the data to the CSV file
             writer.writerow([companyName, productID, productName, productType, productQuantity])
 
         # Display success message
         tkinter.messagebox.showinfo(title="Success", message="Data successfully added!")
-
         # Clear the entry fields after adding data
         company_name_entry.delete(0, 'end')
         product_id_entry.delete(0, 'end')
         product_type_combobox.set('')  # Reset the combobox
         quantity_spinbox.delete(0, 'end')
         product_name_entry.delete(0, 'end')
-
     else:
-        # Display error message if fields are not filled
-        tkinter.messagebox.showwarning(title="Error", message="YOU DID NOT FILL ALL THE FIELDS.")
-
+        # Display error message if fields are not filled correctly
+        tkinter.messagebox.showwarning(title="Error", message="FIELDS ARE NOT FILLED CORRECTLY OR AT ALL.")
 #function for searching the inputs to a .csv file
 def search_data():
     # Product ID info
