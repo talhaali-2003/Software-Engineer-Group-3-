@@ -1,0 +1,251 @@
+
+  
+  /* General styles */
+  
+  body {
+    font-family: Arial, sans-serif;
+    font-size: 16px;
+    line-height: 1.5;
+    color: #333;
+    background-color:#F5F5F5;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+  }
+  
+  header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #333;
+    color: #fff;
+    padding: 1rem;
+    box-shadow: 0px 2px 5px rgba(0,0,0,0.1);
+    
+  }
+  
+  nav ul {
+    display: flex;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  nav ul li:hover {
+    background-color: #ffffff;
+    color: #222222;
+    transition: all 0.3s ease-in-out;
+  }
+  
+  nav li {
+    margin: 0 10px;
+  }
+  
+  nav a {
+    color: #fff;
+    text-decoration: none;
+    font-size: 18px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+  
+  nav a:hover {
+    background-color: #555;
+  }
+  
+  main {
+    flex-grow: 1;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem;
+  }
+  
+section {
+    margin-bottom: 2rem;
+}
+  
+h1, h2 {
+  font-size: 3rem;
+  font-weight: bold;
+  margin-bottom: 1rem;
+}
+
+p {
+margin-bottom: 1rem;
+}
+
+ul {
+list-style: disc;
+margin-left: 1rem;
+margin-bottom: 1rem;
+}
+
+
+
+footer {
+  position: relative;
+  background-color: #333;
+  color: #fff;
+  padding: 1rem;
+  text-align: center;
+  bottom: 0;
+  width: 100%;
+}
+
+.footer-link {
+  color: #3498db; /* Set the default color for the hyperlink */
+  text-decoration: none; /* Remove the default underline */
+}
+
+.footer-link:hover {
+  color: #5aa6f7; /* Set the color when the hyperlink is hovered */
+}
+
+@media only screen and (min-width: 768px) {
+  .column-layout {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+  }
+
+  .column {
+    width: calc(50% - 10px);
+  }
+}
+
+
+/* Offer */
+#offer {
+  flex-direction: row;
+  
+}
+
+#offer p {
+  flex: 1;
+  margin-right: 20px;
+}
+
+#offer img {
+  max-width: 50%;
+  height: auto;
+  float:right;
+  position: relative;
+  margin: 0 10px;
+}
+
+
+/*Services -> These are for the projects containers*/
+.service-box {
+  background-color: #f1f1f1;
+  border: 1px solid #ddd;
+  padding: 20px;
+  margin-bottom: 20px;
+  transition: all 0.3s ease;
+}
+
+.service-box h2 {
+  font-size: 1.5rem;
+  margin-top: 0;
+  margin-bottom: 10px;
+}
+
+.service-box:hover {
+  background-color: #ddd;
+  border-color: #aaa;
+  transform: translateY(-5px);
+}
+
+@media only screen and (max-width: 767px) {
+  .column {
+    width: 100%;
+    margin-bottom: 20px;
+  }
+}
+
+header img {
+  width: 100px;
+  height: auto;
+}
+
+
+.logo-container {
+  float: left;
+  margin-right: 10px;
+}
+
+.logo-container img {
+  position: top center;
+  margin-right: 20px;
+  z-index: 9998;
+  max-height: 40px;
+  width: auto;
+  mix-blend-mode: multiply;
+  filter: contrast(1.2);
+  
+}
+
+h1 {
+  display: inline-block;
+  vertical-align: middle;
+  margin-left: 0px;
+}
+
+/* Shows the buttons for the projects page */
+.btn {
+  background-color: gray;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 20px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 10px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.btn:hover {
+  background-color: lightgrey;
+}
+
+
+
+
+/* Meet the team section part of index */ 
+#team {
+  padding: 50px 0;
+  text-align: center;
+}
+
+#team h2 {
+  margin-bottom: 30px;
+}
+
+.team-member {
+  display: inline-block;
+  width: 33.33%;
+  padding: 0 10px;
+  margin-bottom: 30px;
+  vertical-align: top;
+}
+
+.team-member img {
+  max-width: 100%;
+  border-radius: 50%;
+  margin-bottom: 10px;
+}
+
+@media (max-width: 767px) {
+  .team-member {
+    width: 50%;
+  }
+}
+
+@media (max-width: 479px) {
+  .team-member {
+    width: 100%;
+  }
+}
