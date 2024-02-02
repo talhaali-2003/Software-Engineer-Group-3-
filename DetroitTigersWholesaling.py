@@ -59,6 +59,18 @@ def search_data():
     # Product ID info
     productID = product_id_search_entry.get()
 
+    # Validate inputs for foreign characters
+    if not all(is_valid_input(field) for field in [productID]):
+        # Display error message
+        tkinter.messagebox.showwarning(title="Error", message="Foreign characters detected. Please use only standard alphanumeric characters.")
+         # Clear the entry fields
+        company_name_entry.delete(0, 'end')
+        product_id_entry.delete(0, 'end')
+        product_type_combobox.set('')  # Reset the combobox
+        quantity_spinbox.delete(0, 'end')
+        product_name_entry.delete(0, 'end')
+        return  # Exit the function
+
     if productID:
         with open('DetroitTigersWholesaling.csv', 'r') as search_dtw:
             reader = csv.DictReader(search_dtw)
@@ -85,6 +97,18 @@ def search_data():
 def remove_data():
     productID = product_id_remove_entry.get()
     lines_keep = list()
+
+    # Validate inputs for foreign characters
+    if not all(is_valid_input(field) for field in [productID]):
+        # Display error message
+        tkinter.messagebox.showwarning(title="Error", message="Foreign characters detected. Please use only standard alphanumeric characters.")
+         # Clear the entry fields
+        company_name_entry.delete(0, 'end')
+        product_id_entry.delete(0, 'end')
+        product_type_combobox.set('')  # Reset the combobox
+        quantity_spinbox.delete(0, 'end')
+        product_name_entry.delete(0, 'end')
+        return  # Exit the function
 
     if productID:
         with open('DetroitTigersWholesaling.csv', 'r') as remove_dtw:
