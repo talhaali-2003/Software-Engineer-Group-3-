@@ -5,6 +5,14 @@ import csv
 from tkinter import ttk
 import tkinter.messagebox
 
+# Get the directory of the current script
+script_dir = os.path.dirname(os.path.abspath(__file__))
+
+# Build the path to the sample & appenddata file
+sample_data_path = os.path.join(script_dir, 'DetroitTigersWholesaling Sample Data.csv')
+append_file_path = os.path.join(script_dir, 'DetroitTigersWholesaling.csv')
+
+
 def is_valid_input(input_str):
     # Define allowed characters, adjust according to your needs
     allowed_chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789 "
@@ -32,10 +40,10 @@ def add_data():
 
     if companyName and productID and productName and productType and productQuantity:
         # Check if the file is empty (no headers)
-        is_empty = os.stat('DetroitTigersWholesaling.csv').st_size == 0
+        is_empty = os.stat(append_file_path).st_size == 0
 
         # Open the CSV file in append mode
-        with open('DetroitTigersWholesaling.csv', 'a', newline='', encoding='utf-8') as dtw:
+        with open(append_file_path, 'a', newline='', encoding='utf-8') as dtw:
             writer = csv.writer(dtw, delimiter=',')
             # Write headers if the file is empty
             if is_empty:
@@ -95,76 +103,75 @@ def search_data():
 
 #function for removing row of data from a .csv file
 def remove_data():
-    productID = product_id_remove_entry.get()
-    lines_keep = list()
+    productID = product_id_remove_entry.get().strip()  # Trim spaces
 
-    # Validate inputs for foreign characters
-    if not all(is_valid_input(field) for field in [productID]):
-        # Display error message
-        tkinter.messagebox.showwarning(title="Error", message="Foreign characters detected. Please use only standard alphanumeric characters.")
-         # Clear the entry fields
-        company_name_entry.delete(0, 'end')
-        product_id_entry.delete(0, 'end')
-        product_type_combobox.set('')  # Reset the combobox
-        quantity_spinbox.delete(0, 'end')
-        product_name_entry.delete(0, 'end')
-        return  # Exit the function
-
-    if productID:
-        with open('DetroitTigersWholesaling.csv', 'r') as remove_dtw:
-            reader = csv.DictReader(remove_dtw)
-            found_flag = False
-
-            # Stores all data except removed one in a list
-            for line in reader:
-                lines_keep.append(line)
-                if (line["Product ID"] == productID):
-                        print(line["Product Name"] + " has been removed")
-                        lines_keep.remove(line)
-                        found_flag = True
-                        tkinter.messagebox.showinfo(title="Success", message="Data successfully removed!")
-
-            if (found_flag == False):
-                    print("Product is not in inventory")
-                    tkinter.messagebox.showinfo(title="Not Found", message="Product ID not found")
-        
-        # Rewrites .CSV from list
-        with open("DetroitTigersWholesaling.csv", "w", newline='') as wrt:
-            writer = csv.writer(wrt)
-            writer.writerow(lines_keep[0].keys())
-            for x in range(len(lines_keep)):
-                writer.writerow(lines_keep[x].values())
-
-        # Clear the entry fields after searching data
+    if not is_valid_input(productID):
+        tkinter.messagebox.showwarning("Error", "Invalid input detected.")
         product_id_remove_entry.delete(0, 'end')
-    
+        return
+
+    found_flag = False
+    updated_lines = []
+
+    with open('DetroitTigersWholesaling.csv', 'r', newline='', encoding='utf-8') as file:
+        reader = csv.DictReader(file)
+        for row in reader:
+            # Debugging: Print each row's Product ID being compared
+            print("Comparing:", row["Product ID"].strip(), "with input:", productID)
+
+            if row["Product ID"].strip() != productID:
+                updated_lines.append(row)
+            else:
+                found_flag = True
+                print("Removing:", row)
+
+    if found_flag:
+        with open('DetroitTigersWholesaling.csv', 'w', newline='', encoding='utf-8') as file:
+            writer = csv.DictWriter(file, fieldnames=reader.fieldnames)
+            writer.writeheader()
+            writer.writerows(updated_lines)
+        tkinter.messagebox.showinfo("Success", "Product removed successfully.")
     else:
-        # Display error message if fields are not filled
-        tkinter.messagebox.showwarning(title="Error", message="YOU DID NOT FILL ALL THE FIELDS.")
+        tkinter.messagebox.showinfo("Not Found", "Product ID not found.")
+
+    product_id_remove_entry.delete(0, 'end')
+
 
 def add_Sample_Data():
-    sample_Data_List = list()
-    #Read sample data
-    with open('DetroitTigersWholesaling Sample Data.csv', 'r') as add_Sample_Data_dtw:
-            reader = csv.DictReader(add_Sample_Data_dtw)
-            # Stores all data
-            for line in reader:
-                sample_Data_List.append(line)
+    # Define your fieldnames according to the CSV structure
+    fieldnames = ['Company Name', 'Product ID', 'Product Name', 'Product Type', 'Product Quantity']
+    
+    # Initialize a list to store your dictionaries
+    sample_Data_List = []
+    
+    # Read the sample data, assuming the data is structured correctly in the CSV format
+    with open(sample_data_path, 'r', encoding='utf-8') as file:
+        reader = csv.reader(file)
+        # Skip the header of the sample file if it exists
+        next(reader, None)  # This skips the first row (header) if your sample data file includes headers
+        for components in reader:
+            # Ensure the line has the correct number of components
+            if len(components) == len(fieldnames):
+                # Create a dictionary mapping fieldnames to components
+                data_dict = dict(zip(fieldnames, components))
+                sample_Data_List.append(data_dict)
+            # Break after adding 50 entries
+            if len(sample_Data_List) == 50:
+                break
 
-    #Write sample data to main CSV       
-    #Check if the file is empty (no headers)
-    is_empty = os.stat('DetroitTigersWholesaling.csv').st_size == 0
+    # Check if the destination CSV file is empty (no headers)
+    is_empty = not os.path.exists(append_file_path) or os.stat(sample_data_path).st_size == 0
 
-    # Open the CSV file in append mode
-    with open('DetroitTigersWholesaling.csv', 'a', newline='', encoding='utf-8') as dtw:
-        writer = csv.writer(dtw, delimiter=',')
+    # Open the destination CSV file in append mode
+    with open(append_file_path, 'a', newline='', encoding='utf-8') as dtw:
+        writer = csv.DictWriter(dtw, fieldnames=fieldnames)
         # Write headers if the file is empty
         if is_empty:
             writer.writerow(['Company Name', 'Product ID', 'Product Name', 'Product Type', 'Product Quantity'])
         # Write the data to the CSV file
-        for x in range(len(sample_Data_List)):
-            writer.writerow(sample_Data_List[x].values())
-        tkinter.messagebox.showinfo(title="Success", message="Sample Data Added!")
+        writer.writerows(sample_Data_List)
+
+    tkinter.messagebox.showinfo(title="Success", message="Sample Data Added!")
 
 # Creating a GUI window
 window = tkinter.Tk()
