@@ -37,6 +37,18 @@ def add_data():
         quantity_spinbox.delete(0, 'end')
         product_name_entry.delete(0, 'end')
         return  # Exit the function
+    
+    #Validate the quantity of the product
+    if int(productQuantity) > 20:
+        # Display error message
+        tkinter.messagebox.showwarning(title="Error", message="Exceeded Quantity Allowed, Retry!.")
+        # Clear the entry fields
+        company_name_entry.delete(0, 'end')
+        product_id_entry.delete(0, 'end')
+        product_type_combobox.set('')  # Reset the combobox
+        quantity_spinbox.delete(0, 'end')
+        product_name_entry.delete(0, 'end')
+        return  # Exit the function
 
     if companyName and productID and productName and productType and productQuantity:
         # Check if the file is empty (no headers)
