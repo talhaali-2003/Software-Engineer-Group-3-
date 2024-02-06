@@ -8,20 +8,6 @@
     
 </head>
 
-<!-- This JS script makes the user click the checkbox making them agree to the ToS (Terms of Service)-->
-<script>
-  function toggleSubmitButton() {
-      var checkbox = document.getElementById("checkbox");
-      var submitBtn = document.getElementById("submitBtn");
-
-      if (checkbox.checked) {
-          submitBtn.disabled = false;
-      } else {
-          submitBtn.disabled = true;
-      }
-  }
-</script>
-
 
 <header>
   <div class="logo-container">
@@ -56,17 +42,11 @@
 
     <h3>Pylint code Inspection</h3>
     <p1> Passed and Verfied &#10003; </p1>
-    <p2>Score:____ </p2>
+    
 
     <h3>Disclaimer</h3>
     <p1>As technology advances and the overall security landscape evolves, the requirements for website applications will inevitably change over time. New features and functionality may need to be incorporated to keep up with the latest technological advancements, while security measures must be adapted and enhanced to address evolving threats. This necessitates a proactive approach in ensuring that website applications remain up to date and resilient against potential vulnerabilities.</p1>
 
-    <div class="tacbox">
-      <input id="checkbox" type="checkbox" onchange="toggleSubmitButton()" />
-      <label for="checkbox"> I agree to ALL of these <a href="Terms & conditons.html">Terms and Conditions</a>.</label>
-      <br>
-      <a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ&ab_channel=RickAstley"><button id="submitBtn" class="btn" disabled>Submit</button></a>
-   </div>
 
 </body>
 

@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detroit Tiger Wholesaling Form - Technical Documentation</title>
+    <style>
+        /* General styles */
+
+        body {
+            font-family: Arial, sans-serif;
+            font-size: 16px;
+            line-height: 1.5;
+            color: #333;
+            background-color: #F5F5F5;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #333;
+            color: #fff;
+            padding: 1rem;
+            box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        nav ul li:hover {
+            background-color: #ffffff;
+            color: #222222;
+            transition: all 0.3s ease-in-out;
+        }
+
+        nav li {
+            margin: 0 10px;
+        }
+
+        nav a {
+            color: #fff;
+            text-decoration: none;
+            font-size: 18px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        nav a:hover {
+            background-color: #555;
+        }
+
+        main {
+            flex-grow: 1;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        section {
+            margin-bottom: 2rem;
+        }
+
+        h1,
+        h2 {
+            font-size: 3rem;
+            font-weight: bold;
+            margin-bottom: 1rem;
+        }
+
+        p {
+            margin-bottom: 1rem;
+        }
+
+        ul {
+            list-style: disc;
+            margin-left: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        footer {
+            position: relative;
+            background-color: #333;
+            color: #fff;
+            padding: 1rem;
+            text-align: center;
+            bottom: 0;
+            width: 100%;
+        }
+
+        .footer-link {
+            color: #3498db;
+        }
+
+        .footer-link:hover {
+            color: #5aa6f7;
+        }
+
+        @media only screen and (min-width: 768px) {
+            .column-layout {
+                display: flex;
+                flex-direction: row;
+                flex-wrap: wrap;
+                justify-content: space-between;
+            }
+
+            .column {
+                width: calc(50% - 10px);
+            }
+        }
+
+        #offer {
+            flex-direction: row;
+        }
+
+        #offer p {
+            flex: 1;
+            margin-right: 20px;
+        }
+
+        #offer img {
+            max-width: 50%;
+            height: auto;
+            float: right;
+            position: relative;
+            margin: 0 10px;
+        }
+
+        .service-box {
+            background-color: #f1f1f1;
+            border: 1px solid #ddd;
+            padding: 20px;
+            margin-bottom: 20px;
+            transition: all 0.3s ease;
+        }
+
+        .service-box h2 {
+            font-size: 1.5rem;
+            margin-top: 0;
+            margin-bottom: 10px;
+        }
+
+        .service-box:hover {
+            background-color: #ddd;
+            border-color: #aaa;
+            transform: translateY(-5px);
+        }
+
+        @media only screen and (max-width: 767px) {
+            .column {
+                width: 100%;
+                margin-bottom: 20px;
+            }
+        }
+
+        header img {
+            width: 100px;
+            height: auto;
+        }
+
+        .logo-container {
+            float: left;
+            margin-right: 10px;
+        }
+
+        .logo-container img {
+            position: top center;
+            margin-right: 20px;
+            z-index: 9998;
+            max-height: 40px;
+            width: auto;
+            mix-blend-mode: multiply;
+            filter: contrast(1.2);
+        }
+
+        h1 {
+            display: inline-block;
+            vertical-align: middle;
+            margin-left: 0px;
+        }
+
+        .btn {
+            background-color: gray;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            padding: 10px 20px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 10px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .btn:hover {
+            background-color: lightgrey;
+        }
+
+        #team {
+            padding: 50px 0;
+            text-align: center;
+        }
+
+        #team h2 {
+            margin-bottom: 30px;
+        }
+
+        .team-member {
+            display: inline-block;
+            width: 33.33%;
+            padding: 0 10px;
+            margin-bottom: 30px;
+            vertical-align: top;
+        }
+
+        .team-member img {
+            max-width: 100%;
+            border-radius: 50%;
+            margin-bottom: 10px;
+        }
+
+        @media (max-width: 767px) {
+            .team-member {
+                width: 50%;
+            }
+        }
+
+        @media (max-width: 479px) {
+            .team-member {
+                width: 100%;
+            }
+        }
+
+        /* Additional styles for the provided HTML content */
+
+        h3 {
+            font-size: 2rem;
+            font-weight: bold;
+            margin-bottom: 1rem;
+        }
+
+        code {
+            font-family: 'Courier New', Courier, monospace;
+            background-color: #f1f1f1;
+            padding: 2px 5px;
+            border-radius: 3px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <div class="logo-container">
+            <img src="images/ForeveiwLogo.jpeg" alt="Logo">
+        </div>
+        <nav>
+            <ul>
+              <li><a href="index.html">Home</a></li>
+              <li><a href="Projects.html">Projects</a></li>
+            </ul>
+          </nav>
+    </header>
+
+    <main>
+
+        <h1>Detroit Tiger Wholesaling Form - Technical Documentation</h1>
+
+        <section id="overview">
+            <h2>Overview</h2>
+            <p>The Detroit Tiger Wholesaling Form is a Python program built using the Tkinter library to create a graphical user interface (GUI) for managing and interacting with a CSV file that stores company and product information. The program allows users to add, search, and remove data entries from the CSV file.</p>
+        </section>
+
+        <section id="features">
+            <h2>Features</h2>
+            <ol>
+                <li><strong>Add Data:</strong>
+                    <ul>
+                        <li>Collects company and product information (Company Name, Product ID, Product Name, Product Type, and Quantity) through an input form.</li>
+                        <li>Validates the input to ensure it contains only standard alphanumeric characters.</li>
+                        <li>Appends the entered data to a CSV file named 'DetroitTigersWholesaling.csv.'</li>
+                        <li>Displays success or error messages based on the result.</li>
+                    </ul>
+                </li>
+                <li><strong>Search Data:</strong>
+                    <ul>
+                        <li>Takes a Product ID as input from the user.</li>
+                        <li>Validates input for foreign characters.</li>
+                        <li>Searches the CSV file for the provided Product ID.</li>
+                        <li>Displays the corresponding product name and quantity if found; otherwise, shows an error message.</li>
+                    </ul>
+                </li>
+                <li><strong>Remove Data:</strong>
+                    <ul>
+                        <li>Takes a Product ID as input from the user.</li>
+                        <li>Validates input for foreign characters.</li>
+                        <li>Searches the CSV file for the provided Product ID.</li>
+                        <li>Removes the corresponding entry if found, updates the CSV file, and displays success or error messages.</li>
+                    </ul>
+                </li>
+            </ol>
+        </section>
+
+        <section id="code-structure">
+            <h2>Code Structure</h2>
+
+            <h3>Functions</h3>
+            <ol>
+                <li><code>is_valid_input(input_str)</code>:
+                    <ul>
+                        <li>Validates input string for allowed characters.</li>
+                        <li>Parameters:
+                            <ul>
+                                <li><code>input_str</code>: Input string to be validated.</li>
+                            </ul>
+                        </li>
+                        <li>Returns:
+                            <ul>
+                                <li><code>True</code> if all characters are allowed, <code>False</code> otherwise.</li>
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
+                <li><code>add_data()</code>:
+                    <ul>
+                        <li>Collects input data from the GUI.</li>
+                        <li>Validates input for foreign characters.</li>
+                        <li>Appends data to the CSV file.</li>
+                        <li>Clears the input fields and displays success or error messages.</li>
+                    </ul>
+                </li>
+                <li><code>search_data()</code>:
+                    <ul>
+                        <li>Collects Product ID input from the GUI.</li>
+                        <li>Validates input for foreign characters.</li>
+                        <li>Searches the CSV file for the provided Product ID.</li>
+                        <li>Displays product information if found; otherwise, shows an error message.</li>
+                    </ul>
+                </li>
+                <li><code>remove_data()</code>:
+                    <ul>
+                        <li>Collects Product ID input from the GUI.</li>
+                        <li>Validates input for foreign characters.</li>
+                        <li>Removes the entry with the provided Product ID from the CSV file.</li>
+                        <li>Updates the CSV file and displays success or error messages.</li>
+                    </ul>
+                </li>
+            </ol>
+
+            <h3>GUI Elements</h3>
+            <ul>
+                <li><strong>Window:</strong>
+                    <ul>
+                        <li>The main GUI window titled "Detroit Tiger Wholesaling Form."</li>
+                    </ul>
+                </li>
+                <li><strong>Frames:</strong>
+                    <ul>
+                        <li><code>frame</code>: Main frame to contain other frames and widgets.</li>
+                        <li><code>company_info_frame</code>: Frame for collecting company and product information.</li>
+                        <li><code>search_frame</code>: Frame for searching product data.</li>
+                        <li><code>remove_frame</code>: Frame for removing product data.</li>
+                    </ul>
+                </li>
+                <li><strong>Labels:</strong>
+                    <ul>
+                        <li>Various labels for Company Name, Product ID, Product Name, Product Type, Quantity, and more.</li>
+                    </ul>
+                </li>
+                <li><strong>Entry Widgets:</strong>
+                    <ul>
+                        <li>Entry widgets for user input of Company Name, Product ID, Product Name, and Product ID for search and removal.</li>
+                    </ul>
+                </li>
+                <li><strong>Combobox:</strong>
+                    <ul>
+                        <li>Dropdown combobox for selecting the Product Type.</li>
+                    </ul>
+                </li>
+                <li><strong>Spinbox:</strong>
+                    <ul>
+                        <li>Spinbox for selecting the quantity (limited to a maximum of 20).</li>
+                    </ul>
+                </li>
+                <li><strong>Buttons:</strong>
+                    <ul>
+                        <li><code>Add Data</code>: Triggers the <code>add_data</code> function.</li>
+                        <li><code>Search Data</code>: Triggers the <code>search_data</code> function.</li>
+                        <li><code>Remove Data</code>: Triggers the <code>remove_data</code> function.</li>
+                    </ul>
+                </li>
+            </ul>
+        </section>
+
+        <section id="usage">
+            <h2>Usage</h2>
+            <ol>
+                <li>Run the program.</li>
+                <li>Fill in the required information in the "Company & Product Information" section.</li>
+                <li>Click the "Add Data" button to add the entered information to the CSV file.</li>
+                <li>Use the "Product Search" section to search for product information based on the Product ID.</li>
+                <li>Use the "Remove Data" section to remove product information based on the Product ID.</li>
+                <p>Note: The program validates inputs to ensure they contain only standard alphanumeric characters. Foreign characters trigger an error message.</p>
+            </ol>
+        </section>
+
+        <section id="dependencies">
+            <h2>Dependencies</h2>
+            <ul>
+                <li>The program relies on the Tkinter library for creating the GUI.</li>
+                <li>The CSV module is used for reading and writing CSV files.</li>
+            </ul>
+        </section>
+
+        <section id="file-management">
+            <h2>File Management</h2>
+            <ul>
+                <li>The program reads and writes data to a CSV file named 'DetroitTigersWholesaling.csv.'</li>
+                <li>The CSV file is created if it doesn't exist, and headers are added if the file is empty.</li>
+            </ul>
+        </section>
+
+        <section id="conclusion">
+            <h2>Conclusion</h2>
+            <p>The Detroit Tiger Wholesaling Form provides a simple and interactive interface for managing company and product information. Users can easily add, search, and remove data entries stored in a CSV file, making it a convenient tool for inventory management.</p>
+        </section>
+
+        <p><a href="TermsofServiceAcknowledgment.html"><button class="btn">Download Now!</button></a></p>
+
+    </main>
+
+    <footer>
+        <p>&copy; 2024 Forestview Technologies. All rights reserved.</p>
+        <a href="Terms & conditons.html" class="footer-link">Terms and Conditions</a>
+      </footer>
+
+</body>
+
+</html>
