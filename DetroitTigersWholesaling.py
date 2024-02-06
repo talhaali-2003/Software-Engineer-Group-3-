@@ -118,6 +118,30 @@ def remove_data():
         # Display error message if fields are not filled
         tkinter.messagebox.showwarning(title="Error", message="YOU DID NOT FILL ALL THE FIELDS.")
 
+def add_Sample_Data():
+    sample_Data_List = list()
+    #Read sample data
+    with open('DetroitTigersWholesaling Sample Data.csv', 'r') as add_Sample_Data_dtw:
+            reader = csv.DictReader(add_Sample_Data_dtw)
+            # Stores all data
+            for line in reader:
+                sample_Data_List.append(line)
+
+    #Write sample data to main CSV       
+    #Check if the file is empty (no headers)
+    is_empty = os.stat('DetroitTigersWholesaling.csv').st_size == 0
+
+    # Open the CSV file in append mode
+    with open('DetroitTigersWholesaling.csv', 'a', newline='', encoding='utf-8') as dtw:
+        writer = csv.writer(dtw, delimiter=',')
+        # Write headers if the file is empty
+        if is_empty:
+            writer.writerow(['Company Name', 'Product ID', 'Product Name', 'Product Type', 'Product Quantity'])
+        # Write the data to the CSV file
+        for x in range(len(sample_Data_List)):
+            writer.writerow(sample_Data_List[x].values())
+        tkinter.messagebox.showinfo(title="Success", message="Sample Data Added!")
+
 # Creating a GUI window
 window = tkinter.Tk()
 window.title("Detroit Tiger Wholesaling Form")
@@ -205,10 +229,13 @@ product_id_remove_entry.grid(row=2, column=0)
 for widget in remove_frame.winfo_children():
     widget.grid_configure(padx=10, pady=5)
 
-# Button for parsing through data
+# Button for removing data
 buttonRemove = tkinter.Button(frame, text="Remove Data", command= remove_data, width = 5)
 buttonRemove.grid(row=3, column=1, sticky="news", padx=3, pady=3)
 
+# Button for adding sample data
+buttonRemove = tkinter.Button(frame, text="Add Sample Data", command= add_Sample_Data, width = 5)
+buttonRemove.grid(row=1, column=1, sticky="news", padx=3, pady=3)
 
 #Closing Main Loop
 window.mainloop()
