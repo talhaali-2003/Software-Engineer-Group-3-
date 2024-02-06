@@ -80,7 +80,7 @@ def search_data():
         return  # Exit the function
 
     if productID:
-        with open('DetroitTigersWholesaling.csv', 'r') as search_dtw:
+        with open(append_file_path, 'r') as search_dtw:
             reader = csv.DictReader(search_dtw)
             found_flag = False
 
@@ -103,38 +103,38 @@ def search_data():
 
 #function for removing row of data from a .csv file
 def remove_data():
-    productID = product_id_remove_entry.get().strip()  # Trim spaces
+    productID = product_id_remove_entry.get().strip()
 
     if not is_valid_input(productID):
         tkinter.messagebox.showwarning("Error", "Invalid input detected.")
-        product_id_remove_entry.delete(0, 'end')
         return
 
     found_flag = False
     updated_lines = []
 
-    with open('DetroitTigersWholesaling.csv', 'r', newline='', encoding='utf-8') as file:
-        reader = csv.DictReader(file)
-        for row in reader:
-            # Debugging: Print each row's Product ID being compared
-            print("Comparing:", row["Product ID"].strip(), "with input:", productID)
-
-            if row["Product ID"].strip() != productID:
-                updated_lines.append(row)
-            else:
-                found_flag = True
-                print("Removing:", row)
+    try:
+        with open(append_file_path, 'r', newline='', encoding='utf-8') as file:
+            reader = csv.DictReader(file)
+            # Optional: Print headers for debugging
+            print("Headers:", reader.fieldnames)
+            for row in reader:
+                if row["Product ID"].strip() == productID:
+                    found_flag = True
+                    print(f"Removing: {row}")
+                else:
+                    updated_lines.append(row)
+    except KeyError as e:
+        tkinter.messagebox.showerror("Error", f"KeyError encountered: {e}")
+        return
 
     if found_flag:
-        with open('DetroitTigersWholesaling.csv', 'w', newline='', encoding='utf-8') as file:
+        with open(append_file_path, 'w', newline='', encoding='utf-8') as file:
             writer = csv.DictWriter(file, fieldnames=reader.fieldnames)
             writer.writeheader()
             writer.writerows(updated_lines)
         tkinter.messagebox.showinfo("Success", "Product removed successfully.")
     else:
         tkinter.messagebox.showinfo("Not Found", "Product ID not found.")
-
-    product_id_remove_entry.delete(0, 'end')
 
 
 def add_Sample_Data():
