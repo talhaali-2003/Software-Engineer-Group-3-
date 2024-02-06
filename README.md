@@ -1,2 +1,2 @@
-# SEGroup1
-Data Analytics Application using the Spotify API.
+# SEGroup 3
+We are group 3 in Software Engineering CSC 4110
