@@ -140,6 +140,13 @@ date_label.grid(column=0, row=0, sticky=tk.W, padx=10, pady=5)
 date_entry = ttk.Entry(root, textvariable=date_var)
 date_entry.grid(column=1, row=0, sticky=tk.EW, padx=10, pady=5)
 
+chart_type_var = tk.StringVar()
+chart_type_label = ttk.Label(root, text="Chart Type:")
+chart_type_label.grid(column=0, row=4, sticky=tk.W, padx=10, pady=5)
+chart_type_dropdown = ttk.Combobox(root, textvariable=chart_type_var, values=['Bar Chart', 'Line Graph'])
+chart_type_dropdown.grid(column=1, row=4, sticky=tk.EW, padx=10, pady=5)
+chart_type_dropdown.current(0) 
+
 # Amount entry
 amount_var = tk.StringVar()
 amount_label = ttk.Label(root, text="Amount:")
