@@ -136,11 +136,17 @@ footer {
 
 
 /*Services -> These are for the projects containers*/
+
+.column-layout {
+  display: flex;
+}
+
 .service-box {
   background-color: #f1f1f1;
   border: 1px solid #ddd;
   padding: 20px;
   margin-bottom: 20px;
+  
   transition: all 0.3s ease;
 }
 

@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Personal Finance Tracker - Technical Documentation</title>
+    <style>
+        /* General styles */
+        body {
+            font-family: Arial, sans-serif;
+            font-size: 16px;
+            line-height: 1.5;
+            color: #333;
+            background-color: #F5F5F5;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #333;
+            color: #fff;
+            padding: 1rem;
+            box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        nav ul li:hover {
+            background-color: #ffffff;
+            color: #222222;
+            transition: all 0.3s ease-in-out;
+        }
+
+        nav li {
+            margin: 0 10px;
+        }
+
+        nav a {
+            color: #fff;
+            text-decoration: none;
+            font-size: 18px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        nav a:hover {
+            background-color: #555;
+        }
+
+        main {
+            flex-grow: 1;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        section {
+            margin-bottom: 2rem;
+        }
+
+        h1,
+        h2 {
+            font-size: 3rem;
+            font-weight: bold;
+            margin-bottom: 1rem;
+        }
+
+        p {
+            margin-bottom: 1rem;
+        }
+
+        ul {
+            list-style: disc;
+            margin-left: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        footer {
+            position: relative;
+            background-color: #333;
+            color: #fff;
+            padding: 1rem;
+            text-align: center;
+            bottom: 0;
+            width: 100%;
+        }
+
+        .footer-link {
+            color: #3498db;
+        }
+
+        .footer-link:hover {
+            color: #5aa6f7;
+        }
+
+        @media only screen and (min-width: 768px) {
+            .column-layout {
+                display: flex;
+                flex-direction: row;
+                flex-wrap: wrap;
+                justify-content: space-between;
+            }
+
+            .column {
+                width: calc(50% - 10px);
+            }
+        }
+
+        .service-box {
+            background-color: #f1f1f1;
+            border: 1px solid #ddd;
+            padding: 20px;
+            margin-bottom: 20px;
+            transition: all 0.3s ease;
+        }
+
+        .service-box h2 {
+            font-size: 1.5rem;
+            margin-top: 0;
+            margin-bottom: 10px;
+        }
+
+        .service-box:hover {
+            background-color: #ddd;
+            border-color: #aaa;
+            transform: translateY(-5px);
+        }
+
+        @media only screen and (max-width: 767px) {
+            .column {
+                width: 100%;
+                margin-bottom: 20px;
+            }
+        }
+
+        header img {
+            width: 100px;
+            height: auto;
+        }
+
+        .logo-container {
+            float: left;
+            margin-right: 10px;
+        }
+
+        .logo-container img {
+            position: top center;
+            margin-right: 20px;
+            z-index: 9998;
+            max-height: 40px;
+            width: auto;
+            mix-blend-mode: multiply;
+            filter: contrast(1.2);
+        }
+
+        h1 {
+            display: inline-block;
+            vertical-align: middle;
+            margin-left: 0px;
+        }
+
+        .btn {
+            background-color: gray;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            padding: 10px 20px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 10px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .btn:hover {
+            background-color: lightgrey;
+        }
+
+        /* Additional styles for the provided HTML content */
+        h3 {
+            font-size: 2rem;
+            font-weight: bold;
+            margin-bottom: 1rem;
+        }
+
+        code {
+            font-family: 'Courier New', Courier, monospace;
+            background-color: #f1f1f1;
+            padding: 2px 5px;
+            border-radius: 3px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <div class="logo-container">
+            <img src="images/ForeveiwLogo.jpeg" alt="Logo">
+        </div>
+        <nav>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="Projects.html">Projects</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+
+        <h1>Personal Finance Tracker - Technical Documentation</h1>
+
+        <section id="overview">
+            <h2>Overview</h2>
+            <p>The Personal Finance Tracker is a Python program developed with Tkinter to provide a graphical user interface (GUI) for managing and tracking personal expenses. Users can add their daily expenses, categorize them, and visualize the data through charts.</p>
+        </section>
+
+        <section id="features">
+            <h2>Features</h2>
+            <ol>
+                <li><strong>Add Expense:</strong>
+                    <ul>
+                        <li>Collects date, amount, and category information through an input form.</li>
+                        <li>Validates the input for correctness and completeness.</li>
+                        <li>Appends the entered data to the expenses list.</li>
+                        <li>Displays success or error messages based on the result.</li>
+                    </ul>
+                </li>
+                <li><strong>Draw Chart:</strong>
+                    <ul>
+                        <li>Allows users to visualize their expenses through either a bar chart or a line graph.</li>
+                        <li>Supports customization of the chart type.</li>
+                    </ul>
+                </li>
+            </ol>
+        </section>
+
+        <section id="code-structure">
+            <h2>Code Structure</h2>
+
+            <h3>Functions</h3>
+            <ol>
+                <li><code>add_expense()</code>:
+                    <ul>
+                        <li>Collects input data from the GUI.</li>
+                        <li>Validates input for correctness.</li>
+                        <li>Appends data to the expenses list.</li>
+                        <li>Clears the input fields and displays success or error messages.</li>
+                    </ul>
+                </li>
+                <li><code>draw_chart()</code>:
+                    <ul>
+                        <li>Determines the chart type selected by the user.</li>
+                        <li>Calls the respective chart-drawing function.</li>
+                    </ul>
+                </li>
+                <li><code>draw_bar_chart()</code>:
+                    <ul>
+                        <li>Generates a bar chart based on aggregated monthly expenses.</li>
+                        <li>Uses Turtle graphics for visualization.</li>
+                    </ul>
+                </li>
+                <li><code>draw_line_graph()</code>:
+                    <ul>
+                        <li>Placeholder for future implementation of a line graph.</li>
+                    </ul>
+                </li>
+            </ol>
+        </section>
+
+        <section id="usage">
+            <h2>Usage</h2>
+            <ol>
+                <li>Run the program.</li>
+                <li>Fill in the required information in the input form.</li>
+                <li>Click the "Add Expense" button to add the entered information to the expenses list.</li>
+                <li>Select the desired chart type from the dropdown.</li>
+                <li>Click the "Draw Chart" button to visualize expenses.</li>
+                <p>Note: The program validates inputs to ensure correctness and completeness. Error messages are displayed for invalid inputs.</p>
+            </ol>
+        </section>
+
+        <section id="dependencies">
+            <h2>Dependencies</h2>
+            <ul>
+                <li>The program relies on the Tkinter library for creating the GUI.</li>
+                <li>Uses the Turtle graphics library for drawing charts.</li>
+            </ul>
+        </section>
+
+        <section id="conclusion">
+            <h2>Conclusion</h2>
+            <p>The Personal Finance Tracker offers a user-friendly interface for managing and visualizing personal expenses. With features like expense addition and customizable chart drawing, it provides a convenient tool for tracking financial activities.</p>
+        </section>
+
+        <p><a href="TermsofServiceAcknowledgment2.html"><button class="btn">Download Now!</button></a></p>
+
+    </main>
+
+    <footer>
+        <p>&copy; 2024 Forestview Technologies. All rights reserved.</p>
+        <a href="Terms & conditons.html" class="footer-link">Terms and Conditions</a>
+    </footer>
+
+</body>
+
+</html>
