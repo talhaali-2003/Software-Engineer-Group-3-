@@ -9,6 +9,7 @@ expenses = []
 
 # Add an expense
 def add_expense():
+    """Adds an element to Expenses data structure"""
     date_str = date_var.get()
     amount_str = amount_var.get()
     category = category_var.get()
@@ -36,6 +37,7 @@ def add_expense():
 
 # Draw the chart
 def draw_chart():
+    """Check for errors in chart selection"""
     chart_type = chart_type_var.get()
     
     if chart_type == 'Bar Chart':
@@ -49,6 +51,7 @@ from collections import defaultdict
 import calendar
 
 def draw_bar_chart():
+    """Draws data in a Bar Chart"""
     if not expenses:
         messagebox.showinfo("Info", "No expenses to display.")
         return
@@ -113,12 +116,57 @@ def draw_bar_chart():
 
 
 def draw_line_graph():
+    """Draws data in a line graph"""
     if not expenses:
         messagebox.showinfo("Info", "No expenses to display.")
         return
     
-    # Placeholder for the line graph drawing code
-    print("Drawing line graph...")  # Replace with actual drawing code
+    # Aggregate expenses by month
+    totals_by_month = defaultdict(float)
+    for date, category, amount in expenses:
+        month = date.strftime("%Y-%m")  # Format as 'YYYY-MM'
+        totals_by_month[month] += amount
+
+    # Sort totals by month from lowest to highest
+    sorted_months = sorted(totals_by_month.keys(), key=lambda x: totals_by_month[x])
+
+    # Setup Turtle
+    turtle.clearscreen()
+    turtle.title("Monthly Expense Chart")
+    turtle.bgcolor("white")
+    turtle.setup(width=1000, height=600)
+    turtle.penup()
+    turtle.goto(-450, 0)
+
+    max_height = max(totals_by_month.values())
+    scaling_factor = 150 / max_height
+    spacing = 150
+
+    for month in sorted_months:
+        amount = totals_by_month[month]
+
+        # Draw Line to next point
+        turtle.goto(turtle.xcor() + spacing, amount * scaling_factor)
+        turtle.pendown()
+        
+        # Draw Cirlce at point
+        turtle.fillcolor(random.choice(['red', 'green', 'blue', 'yellow', 'purple']))
+        turtle.begin_fill()
+        turtle.circle(3)
+        turtle.end_fill()
+
+        # Label for the month and amount
+        turtle.penup()
+        turtle.sety(turtle.ycor() + 20)
+        month_name = calendar.month_abbr[int(month.split("-")[1])]  # Convert "YYYY-MM" to abbreviated month name
+        turtle.write(f"{month_name}\n${amount:.2f}", align="center")
+
+        # Reset pos after writing
+        turtle.right(90)
+        turtle.forward(20)
+        turtle.left(90)
+        turtle.pendown()
+    
 
 # Tkinter GUI setup
 # Adjustments for window size and layout
