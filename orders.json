@@ -1,0 +1,65 @@
+[
+    {
+        "pizza": "Pepperoni",
+        "quantity": 1,
+        "customer_name": "Talha",
+        "customer_phone": "2489818859",
+        "timestamp": "2024-04-03 14:26:19"
+    },
+    {
+        "pizza": "Pepperoni",
+        "quantity": 1,
+        "customer_name": "Raka",
+        "customer_phone": "",
+        "timestamp": "2024-04-03 14:26:27"
+    },
+    {
+        "pizza": "Pepperoni",
+        "quantity": 1,
+        "customer_name": "",
+        "customer_phone": "",
+        "timestamp": "2024-04-03 14:27:05"
+    },
+    {
+        "pizza": "Pepperoni",
+        "quantity": 1,
+        "customer_name": "",
+        "customer_phone": "",
+        "timestamp": "2024-04-03 14:27:10"
+    },
+    {
+        "pizza": "Pepperoni",
+        "quantity": 1,
+        "customer_name": "",
+        "customer_phone": "",
+        "timestamp": "2024-04-03 14:27:12"
+    },
+    {
+        "pizza": "Pepperoni",
+        "quantity": 1,
+        "customer_name": "Talha",
+        "customer_phone": "2489818859",
+        "timestamp": "2024-04-03 14:32:04"
+    },
+    {
+        "pizza": "Pepperoni",
+        "quantity": 1,
+        "customer_name": "Talha",
+        "customer_phone": "2489818859",
+        "timestamp": "2024-04-03 14:32:07"
+    },
+    {
+        "pizza": "Pepperoni",
+        "quantity": 1,
+        "customer_name": "Talha",
+        "customer_phone": "2489818859",
+        "timestamp": "2024-04-03 14:32:09"
+    },
+    {
+        "pizza": "Pepperoni",
+        "quantity": 1,
+        "customer_name": "Talha",
+        "customer_phone": "2489818859",
+        "timestamp": "2024-04-03 14:41:20"
+    }
+]
