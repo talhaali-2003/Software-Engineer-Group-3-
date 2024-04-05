@@ -31,8 +31,8 @@ class PizzaOrderingSystem:
         self.selected_crust = tk.StringVar(root)
         self.selected_crust.set(self.crusts[0])  # Default crust
         self.selected_toppings = [tk.BooleanVar(root, value=False) for _ in range(len(self.toppings))]
-        self.quantity = tk.IntVar(root)
-        self.quantity.set(1)
+        self.quantity = tk.StringVar(root)
+        self.quantity.set("1")
         self.customer_name = tk.StringVar(root)
         self.customer_phone = tk.StringVar(root)
         
@@ -101,8 +101,33 @@ class PizzaOrderingSystem:
         customer_name = self.customer_name.get()
         customer_phone = self.customer_phone.get()
 
+        # Validate user input
         if pizza == "Select Pizza" or pizza not in self.inventory:
-            tk.messagebox.showerror("Error", "Please select a pizza to order.")
+            tk.messagebox.showerror("Error", "Please select a valid pizza.")
+            return
+
+        if size not in self.sizes:
+            tk.messagebox.showerror("Error", "Please select a valid size.")
+            return
+
+        if crust not in self.crusts:
+            tk.messagebox.showerror("Error", "Please select a valid crust.")
+            return
+
+        if not customer_name:
+            tk.messagebox.showerror("Error", "Please enter customer name.")
+            return
+
+        if not customer_phone:
+            tk.messagebox.showerror("Error", "Please enter customer phone number.")
+            return
+
+        try:
+            quantity = int(quantity)
+            if quantity <= 0:
+                raise ValueError
+        except ValueError:
+            tk.messagebox.showerror("Error", "Quantity must be a positive integer.")
             return
 
         # Check if inventory is sufficient for each ingredient needed for the pizza
@@ -136,7 +161,6 @@ class PizzaOrderingSystem:
 
             tk.messagebox.showinfo("Order Placed", f"{quantity} {size} {crust} {pizza} pizza(s) ordered for {customer_name}!")
 
-
     def switch_to_management(self):
         self.root.destroy()
         root = tk.Tk()
@@ -150,8 +174,7 @@ class InventoryManagementSystem:
         self.root.title("Pizza Ordering and Inventory Management System")
         
         # Initialize inventory
-        self.inventory = inventory
-
+        self.inventory = inventory        
         # Load orders from JSON file
         self.orders = []
         try:
