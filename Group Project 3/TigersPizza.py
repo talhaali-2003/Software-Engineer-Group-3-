@@ -8,6 +8,11 @@ class PizzaOrderingSystem:
         self.root = root
         self.root.title("Pizza Ordering and Inventory Management System")
         
+        # Define pizza sizes, crusts, and toppings
+        self.sizes = ["Small", "Medium", "Large"]
+        self.crusts = ["Thin Crust", "Regular Crust", "Thick Crust"]
+        self.toppings = ["Cheese", "Tomatoes", "Basil", "Pepperoni", "Peppers", "Olives", "Onions", "Mushrooms", "Ham", "Pineapple"]
+        
         if inventory is not None:
             self.inventory = inventory
         else:
@@ -17,9 +22,15 @@ class PizzaOrderingSystem:
                         "Vegetarian": {"Cheese": 2, "Peppers": 1, "Olives": 1, "Onions": 1, "Mushrooms": 1},
                         "Hawaiian": {"Cheese": 2, "Ham": 2, "Pineapple": 1}
                     }        
+        
         # Initialize order variables
         self.selected_pizza = tk.StringVar(root)
         self.selected_pizza.set("Select Pizza")
+        self.selected_size = tk.StringVar(root)
+        self.selected_size.set(self.sizes[0])  # Default size
+        self.selected_crust = tk.StringVar(root)
+        self.selected_crust.set(self.crusts[0])  # Default crust
+        self.selected_toppings = [tk.BooleanVar(root, value=False) for _ in range(len(self.toppings))]
         self.quantity = tk.IntVar(root)
         self.quantity.set(1)
         self.customer_name = tk.StringVar(root)
@@ -45,29 +56,47 @@ class PizzaOrderingSystem:
         pizza_dropdown = tk.OptionMenu(self.root, self.selected_pizza, *self.inventory.keys())
         pizza_dropdown.grid(row=1, column=1)
         
+        size_label = tk.Label(self.root, text="Size:")
+        size_label.grid(row=2, column=0, sticky="w")
+        size_dropdown = tk.OptionMenu(self.root, self.selected_size, *self.sizes)
+        size_dropdown.grid(row=2, column=1)
+        
+        crust_label = tk.Label(self.root, text="Crust:")
+        crust_label.grid(row=3, column=0, sticky="w")
+        crust_dropdown = tk.OptionMenu(self.root, self.selected_crust, *self.crusts)
+        crust_dropdown.grid(row=3, column=1)
+        
+        toppings_label = tk.Label(self.root, text="Toppings:")
+        toppings_label.grid(row=4, column=0, sticky="w")
+        for idx, topping in enumerate(self.toppings):
+            topping_checkbox = tk.Checkbutton(self.root, text=topping, variable=self.selected_toppings[idx])
+            topping_checkbox.grid(row=4+idx, column=1, sticky="w")
+        
         quantity_label = tk.Label(self.root, text="Quantity:")
-        quantity_label.grid(row=2, column=0, sticky="w")
+        quantity_label.grid(row=5+len(self.toppings), column=0, sticky="w")
         quantity_entry = tk.Entry(self.root, textvariable=self.quantity)
-        quantity_entry.grid(row=2, column=1)
+        quantity_entry.grid(row=5+len(self.toppings), column=1)
         
         customer_name_label = tk.Label(self.root, text="Customer Name:")
-        customer_name_label.grid(row=3, column=0, sticky="w")
+        customer_name_label.grid(row=6+len(self.toppings), column=0, sticky="w")
         customer_name_entry = tk.Entry(self.root, textvariable=self.customer_name)
-        customer_name_entry.grid(row=3, column=1)
+        customer_name_entry.grid(row=6+len(self.toppings), column=1)
         
         customer_phone_label = tk.Label(self.root, text="Customer Phone:")
-        customer_phone_label.grid(row=4, column=0, sticky="w")
+        customer_phone_label.grid(row=7+len(self.toppings), column=0, sticky="w")
         customer_phone_entry = tk.Entry(self.root, textvariable=self.customer_phone)
-        customer_phone_entry.grid(row=4, column=1)
+        customer_phone_entry.grid(row=7+len(self.toppings), column=1)
         
         order_button = tk.Button(self.root, text="Place Order", command=self.place_order)
-        order_button.grid(row=5, column=0, columnspan=2)
+        order_button.grid(row=8+len(self.toppings), column=0, columnspan=2)
         
         switch_button = tk.Button(self.root, text="Switch to Inventory Management", command=self.switch_to_management)
-        switch_button.grid(row=6, column=0, columnspan=2)
+        switch_button.grid(row=9+len(self.toppings), column=0, columnspan=2)
 
     def place_order(self):
         pizza = self.selected_pizza.get()
+        size = self.selected_size.get()
+        crust = self.selected_crust.get()
         quantity = self.quantity.get()
         customer_name = self.customer_name.get()
         customer_phone = self.customer_phone.get()
@@ -94,6 +123,8 @@ class PizzaOrderingSystem:
             # Create and save the order
             order = {
                 "pizza": pizza,
+                "size": size,
+                "crust": crust,
                 "quantity": quantity,
                 "customer_name": customer_name,
                 "customer_phone": customer_phone,
@@ -103,7 +134,7 @@ class PizzaOrderingSystem:
             with open("orders.json", "w") as file:
                 json.dump(self.orders, file, indent=4)
 
-            tk.messagebox.showinfo("Order Placed", f"{quantity} {pizza} pizza(s) ordered for {customer_name}!")
+            tk.messagebox.showinfo("Order Placed", f"{quantity} {size} {crust} {pizza} pizza(s) ordered for {customer_name}!")
 
 
     def switch_to_management(self):
@@ -119,7 +150,8 @@ class InventoryManagementSystem:
         self.root.title("Pizza Ordering and Inventory Management System")
         
         # Initialize inventory
-        self.inventory = inventory        
+        self.inventory = inventory
+
         # Load orders from JSON file
         self.orders = []
         try:
@@ -237,8 +269,6 @@ class TimesheetSystem:
         if employee in self.timeslots[timeslot]:
             self.timeslots[timeslot].remove(employee)
             self.update_timeslot_list()
-
-
 
 if __name__ == "__main__":
     root = tk.Tk()
