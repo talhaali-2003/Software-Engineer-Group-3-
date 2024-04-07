@@ -211,6 +211,32 @@ class InventoryManagementSystem:
 
         self.timesheet_system = TimesheetSystem(self.root)
 
+        search_label = tk.Label(self.root, text="Search Orders by Full Name:")
+        search_label.grid(row=10, column=0, sticky="w", pady=(10, 0))
+        self.search_entry = tk.Entry(self.root)
+        self.search_entry.grid(row=10, column=1, pady=(10, 0))
+        
+        search_button = tk.Button(self.root, text="Search", command=self.search_orders)
+        search_button.grid(row=11, column=0, columnspan=2)
+        
+        self.search_results_listbox = tk.Listbox(self.root, width=50, height=10)
+        self.search_results_listbox.grid(row=12, column=0, columnspan=2, pady=(5, 0))
+
+
+    
+    def search_orders(self):
+        last_name = self.search_entry.get().strip()
+        if not all(x.isalpha() or x.isspace() for x in last_name):
+            messagebox.showerror("Error", "Last name must contain only letters.")
+            return
+        
+        self.search_results_listbox.delete(0, tk.END)  # Clear previous search results
+        for order in self.orders:
+            customer_name = order.get("customer_name", "")
+            if last_name.lower() in customer_name.split()[-1].lower():  # Assuming the last word in customer_name is the last name
+                order_details = f"{customer_name} - {order['pizza']} - {order['quantity']} pcs"
+                self.search_results_listbox.insert(tk.END, order_details)
+
     def update_inventory_list(self):
         self.inventory_listbox.delete(0, tk.END)
         for pizza, toppings in self.inventory.items():
@@ -275,6 +301,9 @@ class TimesheetSystem:
 
     def add_employee_to_timeslot(self):
         employee = self.employee_name_entry.get()
+        if not all(x.isalpha() or x.isspace() for x in employee):
+            messagebox.showerror("Error", "Employee name must contain only letters.")
+            return
         timeslot = self.timeslot_var.get()
         if timeslot not in self.timeslots or employee == "":
             tk.messagebox.showerror("Error", "Invalid timeslot or employee name.")
@@ -285,6 +314,9 @@ class TimesheetSystem:
 
     def remove_employee_from_timeslot(self):
         employee = self.employee_name_entry.get()
+        if not all(x.isalpha() or x.isspace() for x in employee):
+            messagebox.showerror("Error", "Employee name must contain only letters.")
+            return
         timeslot = self.timeslot_var.get()
         if timeslot not in self.timeslots or employee == "":
             tk.messagebox.showerror("Error", "Invalid timeslot or employee name.")

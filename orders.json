@@ -61,5 +61,32 @@
         "customer_name": "Talha",
         "customer_phone": "2489818859",
         "timestamp": "2024-04-03 14:41:20"
+    },
+    {
+        "pizza": "Pepperoni",
+        "size": "Small",
+        "crust": "Thin Crust",
+        "quantity": 1,
+        "customer_name": "Ali",
+        "customer_phone": "2489818859",
+        "timestamp": "2024-04-07 16:14:58"
+    },
+    {
+        "pizza": "Hawaiian",
+        "size": "Small",
+        "crust": "Thin Crust",
+        "quantity": 1,
+        "customer_name": "ty",
+        "customer_phone": "22222",
+        "timestamp": "2024-04-07 16:20:12"
+    },
+    {
+        "pizza": "Pepperoni",
+        "size": "Large",
+        "crust": "Thick Crust",
+        "quantity": 1,
+        "customer_name": "Talha",
+        "customer_phone": "2489818859",
+        "timestamp": "2024-04-07 16:26:02"
     }
 ]
