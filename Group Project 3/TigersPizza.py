@@ -78,8 +78,15 @@ class PizzaOrderingSystem:
         toppings_label = tk.Label(self.root, text="Toppings:", bg="#FFD166", fg="#333333", font=("Arial", 12, "bold"))
         toppings_label.grid(row=5, column=0, sticky="w")
         for idx, topping in enumerate(self.toppings):
-            topping_checkbox = tk.Checkbutton(self.root, text=topping, variable=self.selected_toppings[idx], bg="#FFD166", fg="#333333", font=("Arial", 12))
-            topping_checkbox.grid(row=5+idx, column=1, sticky="w")
+            topping_frame = tk.Frame(self.root, bg="#FFD166")
+            topping_frame.grid(row=5+idx, column=1, sticky="w")
+            topping_checkbox = tk.Checkbutton(topping_frame, text=topping, variable=self.selected_toppings[idx], bg="#FFD166", fg="#333333", font=("Arial", 12))
+            topping_checkbox.pack(side=tk.LEFT)
+            topping_image = tk.PhotoImage(file=f"Group Project 3/topping_images/{topping.lower()}.gif")
+            topping_image = topping_image.subsample(5, 5)  # Resizing the image
+            topping_label = tk.Label(topping_frame, image=topping_image, bg="#FFD166")
+            topping_label.image = topping_image
+            topping_label.pack(side=tk.LEFT)
         
         quantity_label = tk.Label(self.root, text="Quantity:", bg="#FFD166", fg="#333333", font=("Arial", 12, "bold"))
         quantity_label.grid(row=6+len(self.toppings), column=0, sticky="w")
@@ -182,9 +189,21 @@ class InventoryManagementSystem:
         self.root = root
         self.root.title("Pizza Ordering and Inventory Management System")
         self.root.configure(bg="#FFD166")  # Set background color
-        
+
+        # Set up password protection
+        self.admin_password = "pizzahutsucks"
+
+        # Create password entry and button
+        self.password_label = tk.Label(self.root, text="Enter Admin Password:", bg="#FFD166", fg="#333333", font=("Arial", 12, "bold"))
+        self.password_label.grid(row=0, column=0, sticky="w", pady=(10, 0))
+        self.password_entry = tk.Entry(self.root, show="*")
+        self.password_entry.grid(row=0, column=1, pady=(10, 0))
+        self.password_button = tk.Button(self.root, text="Submit", command=self.check_password, bg="#FFA500", fg="#333333", font=("Arial", 12, "bold"))
+        self.password_button.grid(row=1, column=0, columnspan=2, pady=10)
+
         # Initialize inventory
-        self.inventory = inventory        
+        self.inventory = inventory
+
         # Load orders from JSON file
         self.orders = []
         try:
@@ -192,28 +211,40 @@ class InventoryManagementSystem:
                 self.orders = json.load(file)
         except FileNotFoundError:
             pass
-        
+
+    def check_password(self):
+        entered_password = self.password_entry.get()
+        if entered_password == self.admin_password:
+            self.show_management_gui()
+        else:
+            messagebox.showerror("Error", "Invalid password. Access denied.")
+
+    def show_management_gui(self):
+        self.password_label.grid_forget()
+        self.password_entry.grid_forget()
+        self.password_button.grid_forget()
+
         # Create management GUI
         self.create_management_gui()
 
     def create_management_gui(self):
         label = tk.Label(self.root, text="Inventory Management", bg="#FFD166", fg="#333333", font=("Arial", 16, "bold"))
         label.grid(row=0, column=0, columnspan=2, pady=10)
-        
+
         inventory_label = tk.Label(self.root, text="Inventory:", bg="#FFD166", fg="#333333", font=("Arial", 12, "bold"))
         inventory_label.grid(row=1, column=0, sticky="w")
-        
-        self.inventory_listbox = tk.Listbox(self.root, width=20, height=8)
+
+        self.inventory_listbox = tk.Listbox(self.root, width=50, height=15)  # Enlarged the listbox
         self.inventory_listbox.grid(row=1, column=1)
         self.update_inventory_list()
-        
+
         revenue_label = tk.Label(self.root, text="Revenue:", bg="#FFD166", fg="#333333", font=("Arial", 12, "bold"))
         revenue_label.grid(row=2, column=0, sticky="w")
-        
+
         self.revenue_label = tk.Label(self.root, text="$0", bg="#FFD166", fg="#333333", font=("Arial", 12))
         self.revenue_label.grid(row=2, column=1)
         self.calculate_revenue()
-        
+
         switch_button = tk.Button(self.root, text="Switch to Pizza Ordering", command=self.switch_to_ordering, bg="#FFA500", fg="#333333", font=("Arial", 12, "bold"))
         switch_button.grid(row=3, column=0, columnspan=2, pady=10)
 
@@ -225,44 +256,37 @@ class InventoryManagementSystem:
         search_label.grid(row=10, column=0, sticky="w", pady=(10, 0))
         self.search_entry = tk.Entry(self.root)
         self.search_entry.grid(row=10, column=1, pady=(10, 0))
-        
+
         search_button = tk.Button(self.root, text="Search", command=self.search_orders, bg="#FFA500", fg="#333333", font=("Arial", 12, "bold"))
         search_button.grid(row=11, column=0, columnspan=2)
-        
+
         self.search_results_listbox = tk.Listbox(self.root, width=50, height=10)
-        self.search_results_listbox.grid(row=12, column=0, columnspan=2, pady=(5, 0))
-
-
-    
-    def search_orders(self):
-        last_name = self.search_entry.get().strip()
-        if not all(x.isalpha() or x.isspace() for x in last_name):
-            messagebox.showerror("Error", "Last name must contain only letters.")
-            return
-        
-        self.search_results_listbox.delete(0, tk.END)  # Clear previous search results
-        for order in self.orders:
-            customer_name = order.get("customer_name", "")
-            if last_name.lower() in customer_name.split()[-1].lower():  # Assuming the last word in customer_name is the last name
-                order_details = f"{customer_name} - {order['pizza']} - {order['quantity']} pcs"
-                self.search_results_listbox.insert(tk.END, order_details)
+        self.search_results_listbox.grid(row=12, column=0, columnspan=2)
 
     def update_inventory_list(self):
         self.inventory_listbox.delete(0, tk.END)
-        for pizza, toppings in self.inventory.items():
-            self.inventory_listbox.insert(tk.END, f"{pizza}:")
-            for topping, quantity in toppings.items():
-                self.inventory_listbox.insert(tk.END, f"  {topping}: {quantity}")
+        for pizza, ingredients in self.inventory.items():
+            self.inventory_listbox.insert(tk.END, f"{pizza}: {', '.join([f'{ingredient}: {quantity}' for ingredient, quantity in ingredients.items()])}")
 
     def calculate_revenue(self):
-        revenue = sum(order["quantity"] * 10 for order in self.orders)  # Assuming each pizza costs $10
+        revenue = 0
+        for order in self.orders:
+            revenue += 10 * order["quantity"]  # Assuming each pizza costs $10
         self.revenue_label.config(text=f"${revenue}")
 
     def switch_to_ordering(self):
         self.root.destroy()
         root = tk.Tk()
-        ordering_system = PizzaOrderingSystem(root, self.inventory)
+        pizza_ordering_system = PizzaOrderingSystem(root, self.inventory)
         root.mainloop()
+
+    def search_orders(self):
+        search_query = self.search_entry.get().lower()
+        self.search_results_listbox.delete(0, tk.END)
+        for order in self.orders:
+            if search_query in order["customer_name"].lower():
+                self.search_results_listbox.insert(tk.END, f"Name: {order['customer_name']}, Phone: {order['customer_phone']}, Pizza: {order['pizza']}, Size: {order['size']}, Crust: {order['crust']}, Quantity: {order['quantity']}, Timestamp: {order['timestamp']}")
+
 
 class TimesheetSystem:
     def __init__(self, root):
@@ -284,7 +308,7 @@ class TimesheetSystem:
         label = tk.Label(self.root, text="Employee Timesheet", bg="#FFD166", fg="#333333", font=("Arial", 16, "bold"))
         label.grid(row=4, column=0, columnspan=2, pady=(10, 0))
         
-        self.timeslot_listbox = tk.Listbox(self.root, width=30, height=8)
+        self.timeslot_listbox = tk.Listbox(self.root, width=50, height=10)  # Enlarged the listbox
         self.timeslot_listbox.grid(row=5, column=0, columnspan=2)
         self.update_timeslot_list()
         
@@ -296,13 +320,10 @@ class TimesheetSystem:
         self.timeslot_var = tk.StringVar(self.root)
         self.timeslot_var.set("Select Timeslot")
         timeslot_dropdown = tk.OptionMenu(self.root, self.timeslot_var, *self.timeslots.keys())
-        timeslot_dropdown.grid(row=7, column=1, sticky="w")
+        timeslot_dropdown.grid(row=7, column=0, columnspan=2, pady=(10, 0), sticky="nsew")
         
         add_button = tk.Button(self.root, text="Add Employee", command=self.add_employee_to_timeslot, bg="#FFA500", fg="#333333", font=("Arial", 12, "bold"))
-        add_button.grid(row=8, column=0, sticky="w")
-        
-        remove_button = tk.Button(self.root, text="Remove Employee", command=self.remove_employee_from_timeslot, bg="#FFA500", fg="#333333", font=("Arial", 12, "bold"))
-        remove_button.grid(row=8, column=1, sticky="w")
+        add_button.grid(row=8, column=0, sticky="w") 
 
     def update_timeslot_list(self):
         self.timeslot_listbox.delete(0, tk.END)
@@ -316,26 +337,16 @@ class TimesheetSystem:
             return
         timeslot = self.timeslot_var.get()
         if timeslot not in self.timeslots or employee == "":
-            tk.messagebox.showerror("Error", "Invalid timeslot or employee name.")
-            return
-        if employee not in self.timeslots[timeslot]:
-            self.timeslots[timeslot].append(employee)
-            self.update_timeslot_list()
-
-    def remove_employee_from_timeslot(self):
-        employee = self.employee_name_entry.get()
-        if not all(x.isalpha() or x.isspace() for x in employee):
-            messagebox.showerror("Error", "Employee name must contain only letters.")
-            return
-        timeslot = self.timeslot_var.get()
-        if timeslot not in self.timeslots or employee == "":
-            tk.messagebox.showerror("Error", "Invalid timeslot or employee name.")
+            messagebox.showerror("Error", "Please select a valid timeslot and enter employee name.")
             return
         if employee in self.timeslots[timeslot]:
-            self.timeslots[timeslot].remove(employee)
-            self.update_timeslot_list()
+            messagebox.showerror("Error", "Employee already assigned to this timeslot.")
+            return
+        self.timeslots[timeslot].append(employee)
+        self.update_timeslot_list()
 
+# Main function
 if __name__ == "__main__":
     root = tk.Tk()
-    ordering_system = PizzaOrderingSystem(root)
+    pizza_ordering_system = PizzaOrderingSystem(root)
     root.mainloop()
