@@ -106,5 +106,14 @@
         "customer_name": "Jacob Phillips",
         "customer_phone": "208-552-1314",
         "timestamp": "2024-04-09 05:55:03"
+    },
+    {
+        "pizza": "Pepperoni",
+        "size": "Medium",
+        "crust": "Regular Crust",
+        "quantity": 1,
+        "customer_name": "Ryan Lewis",
+        "customer_phone": "2489918837",
+        "timestamp": "2024-04-09 12:36:29"
     }
 ]
