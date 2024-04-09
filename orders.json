@@ -106,5 +106,23 @@
         "customer_name": "Jacob Phillips",
         "customer_phone": "208-552-1314",
         "timestamp": "2024-04-09 05:55:03"
+    },
+    {
+        "pizza": "Margherita",
+        "size": "Small",
+        "crust": "Thin Crust",
+        "quantity": 1,
+        "customer_name": "Charlie Maze",
+        "customer_phone": "208-553-1105",
+        "timestamp": "2024-04-09 14:12:28"
+    },
+    {
+        "pizza": "Margherita",
+        "size": "Small",
+        "crust": "Thin Crust",
+        "quantity": 1,
+        "customer_name": "Ryan Jenkins",
+        "customer_phone": "998-552-4325",
+        "timestamp": "2024-04-09 14:14:28"
     }
 ]
