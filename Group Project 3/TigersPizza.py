@@ -325,6 +325,10 @@ class TimesheetSystem:
         add_button = tk.Button(self.root, text="Add Employee", command=self.add_employee_to_timeslot, bg="#FFA500", fg="#333333", font=("Arial", 12, "bold"))
         add_button.grid(row=8, column=0, sticky="w") 
 
+        add_button = tk.Button(self.root, text="Remove Employee", command=self.add_employee_to_timeslot, bg="#FFA500", fg="#333333", font=("Arial", 12, "bold"))
+        add_button.grid(row=8, column=1, sticky="w") 
+
+
     def update_timeslot_list(self):
         self.timeslot_listbox.delete(0, tk.END)
         for timeslot, employees in self.timeslots.items():
