@@ -288,6 +288,7 @@ class InventoryManagementSystem:
                 self.search_results_listbox.insert(tk.END, f"Name: {order['customer_name']}, Phone: {order['customer_phone']}, Pizza: {order['pizza']}, Size: {order['size']}, Crust: {order['crust']}, Quantity: {order['quantity']}, Timestamp: {order['timestamp']}")
 
 
+
 class TimesheetSystem:
     def __init__(self, root):
         self.root = root
@@ -325,9 +326,8 @@ class TimesheetSystem:
         add_button = tk.Button(self.root, text="Add Employee", command=self.add_employee_to_timeslot, bg="#FFA500", fg="#333333", font=("Arial", 12, "bold"))
         add_button.grid(row=8, column=0, sticky="w") 
 
-        add_button = tk.Button(self.root, text="Remove Employee", command=self.add_employee_to_timeslot, bg="#FFA500", fg="#333333", font=("Arial", 12, "bold"))
-        add_button.grid(row=8, column=1, sticky="w") 
-
+        remove_button = tk.Button(self.root, text="Remove Employee", command=self.remove_employee_from_timeslot, bg="#FFA500", fg="#333333", font=("Arial", 12, "bold"))
+        remove_button.grid(row=8, column=1, sticky="w") 
 
     def update_timeslot_list(self):
         self.timeslot_listbox.delete(0, tk.END)
@@ -336,18 +336,28 @@ class TimesheetSystem:
 
     def add_employee_to_timeslot(self):
         employee = self.employee_name_entry.get()
-        if not all(x.isalpha() or x.isspace() for x in employee):
-            messagebox.showerror("Error", "Employee name must contain only letters.")
-            return
         timeslot = self.timeslot_var.get()
-        if timeslot not in self.timeslots or employee == "":
-            messagebox.showerror("Error", "Please select a valid timeslot and enter employee name.")
-            return
-        if employee in self.timeslots[timeslot]:
-            messagebox.showerror("Error", "Employee already assigned to this timeslot.")
-            return
-        self.timeslots[timeslot].append(employee)
-        self.update_timeslot_list()
+        if timeslot in self.timeslots:
+            if employee not in self.timeslots[timeslot]:
+                self.timeslots[timeslot].append(employee)
+                self.update_timeslot_list()
+            else:
+                messagebox.showinfo("Info", "Employee is already added to this timeslot.")
+        else:
+            messagebox.showerror("Error", "Invalid timeslot.")
+
+    def remove_employee_from_timeslot(self):
+        employee = self.employee_name_entry.get()
+        timeslot = self.timeslot_var.get()
+        if timeslot in self.timeslots:
+            if employee in self.timeslots[timeslot]:
+                self.timeslots[timeslot].remove(employee)
+                self.update_timeslot_list()
+            else:
+                messagebox.showerror("Error", "Employee not found in this timeslot.")
+        else:
+            messagebox.showerror("Error", "Invalid timeslot.")
+     
 
 # Main function
 if __name__ == "__main__":

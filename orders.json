@@ -88,5 +88,23 @@
         "customer_name": "Talha",
         "customer_phone": "2489818859",
         "timestamp": "2024-04-07 16:26:02"
+    },
+    {
+        "pizza": "Vegetarian",
+        "size": "Medium",
+        "crust": "Regular Crust",
+        "quantity": 1,
+        "customer_name": "Ryan",
+        "customer_phone": "Jenkins",
+        "timestamp": "2024-04-07 17:02:20"
+    },
+    {
+        "pizza": "Margherita",
+        "size": "Small",
+        "crust": "Thin Crust",
+        "quantity": 1,
+        "customer_name": "Jacob Phillips",
+        "customer_phone": "208-552-1314",
+        "timestamp": "2024-04-09 05:55:03"
     }
 ]
