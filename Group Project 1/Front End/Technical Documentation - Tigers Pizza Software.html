@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pizza Ordering and Inventory Management System - Technical Documentation</title>
+    <style>
+        /* General styles */
+
+        body {
+            font-family: Arial, sans-serif;
+            font-size: 16px;
+            line-height: 1.5;
+            color: #333;
+            background-color: #F5F5F5;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #333;
+            color: #fff;
+            padding: 1rem;
+            box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        nav ul li:hover {
+            background-color: #ffffff;
+            color: #222222;
+            transition: all 0.3s ease-in-out;
+        }
+
+        nav li {
+            margin: 0 10px;
+        }
+
+        nav a {
+            color: #fff;
+            text-decoration: none;
+            font-size: 18px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        nav a:hover {
+            background-color: #555;
+        }
+
+        main {
+            flex-grow: 1;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        section {
+            margin-bottom: 2rem;
+        }
+
+        h1,
+        h2 {
+            font-size: 3rem;
+            font-weight: bold;
+            margin-bottom: 1rem;
+        }
+
+        p {
+            margin-bottom: 1rem;
+        }
+
+        ul {
+            list-style: disc;
+            margin-left: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        footer {
+            position: relative;
+            background-color: #333;
+            color: #fff;
+            padding: 1rem;
+            text-align: center;
+            bottom: 0;
+            width: 100%;
+        }
+
+        .footer-link {
+            color: #3498db;
+        }
+
+        .footer-link:hover {
+            color: #5aa6f7;
+        }
+
+        @media only screen and (min-width: 768px) {
+            .column-layout {
+                display: flex;
+                flex-direction: row;
+                flex-wrap: wrap;
+                justify-content: space-between;
+            }
+
+            .column {
+                width: calc(50% - 10px);
+            }
+        }
+
+        .logo-container {
+            float: left;
+            margin-right: 10px;
+        }
+
+        .logo-container img {
+            position: top center;
+            margin-right: 20px;
+            z-index: 9998;
+            max-height: 40px;
+            width: auto;
+            mix-blend-mode: multiply;
+            filter: contrast(1.2);
+        }
+
+        h1 {
+            display: inline-block;
+            vertical-align: middle;
+            margin-left: 0px;
+        }
+
+        .btn {
+            background-color: gray;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            padding: 10px 20px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 10px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .btn:hover {
+            background-color: lightgrey;
+        }
+
+        /* Additional styles for the provided HTML content */
+
+        h3 {
+            font-size: 2rem;
+            font-weight: bold;
+            margin-bottom: 1rem;
+        }
+
+        code {
+            font-family: 'Courier New', Courier, monospace;
+            background-color: #f1f1f1;
+            padding: 2px 5px;
+            border-radius: 3px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <div class="logo-container">
+            <img src="images/ForeveiwLogo.jpeg" alt="Logo">
+        </div>
+        <nav>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="Projects.html">Projects</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+
+        <h1>Tigers Pizza Software - Technical Documentation</h1>
+
+        <section id="overview">
+            <h2>Overview</h2>
+            <p>The Pizza Ordering and Inventory Management System is a Python-based application developed using the Tkinter library for graphical user interface (GUI) development. It provides functionalities for customers to order pizzas and for administrators to manage the inventory of pizza ingredients, track orders, and manage employee timesheets.</p>
+        </section>
+
+        <section id="features">
+            <h2>Features</h2>
+            <ol>
+                <li><strong>Pizza Ordering</strong>
+                    <ul>
+                        <li>Customers can select from a variety of pizzas, including Margherita, Pepperoni, Vegetarian, and Hawaiian.</li>
+                        <li>They can customize their orders by choosing the size, crust type, and toppings.</li>
+                        <li>The system validates customer inputs and checks inventory availability before placing an order.</li>
+                        <li>Upon successful order placement, the system deducts ingredients from the inventory and saves the order details, including the customer's name and phone number, in a JSON file.</li>
+                    </ul>
+                </li>
+                <li><strong>Inventory Management</strong>
+                    <ul>
+                        <li>Administrators can view and manage the inventory of pizza ingredients.</li>
+                        <li>They can see the current stock levels of each ingredient.</li>
+                        <li>The system calculates and displays the total revenue earned from all orders.</li>
+                    </ul>
+                </li>
+                <li><strong>Employee Timesheet Management</strong>
+                    <ul>
+                        <li>Administrators can view and manage employee timesheets.</li>
+                        <li>They can assign employees to different timeslots throughout the day.</li>
+                        <li>Timesheets are organized into four timeslots: 6 AM - 10 AM, 10 AM - 2 PM, 2 PM - 6 PM, and 6 PM - 10 PM.</li>
+                    </ul>
+                </li>
+            </ol>
+        </section>
+
+        <section id="implementation-details">
+            <h2>Implementation Details</h2>
+            <p><strong>Technologies Used</strong></p>
+            <ul>
+                <li>Python: The core programming language used for developing the application logic.</li>
+                <li>Tkinter: The Python library used for creating the graphical user interface.</li>
+                <li>JSON: Used for storing order data persistently in a file.</li>
+                <li>Datetime: Utilized for timestamping orders with the current date and time.</li>
+            </ul>
+
+            <p><strong>Classes and Modules</strong></p>
+            <ul>
+                <li>PizzaOrderingSystem Class: Manages the pizza ordering functionality, including GUI creation, order placement, and inventory deduction.</li>
+                <li>InventoryManagementSystem Class: Handles inventory management tasks, including GUI creation, inventory display, revenue calculation, and order searching.</li>
+                <li>TimesheetSystem Class: Manages employee timesheets, including GUI creation, timeslot assignment, and employee addition/removal.</li>
+                <li>Main Function: Initializes the Tkinter application and starts the Pizza Ordering System.</li>
+            </ul>
+
+            <p><strong>File Structure</strong></p>
+            <ul>
+                <li>orders.json: A JSON file used for storing order data persistently.</li>
+                <li>Group Project 3: A directory containing pizza images and topping images used in the GUI.</li>
+            </ul>
+        </section>
+
+        <section id="usage">
+            <h2>Usage</h2>
+            <p>Run the Python script (TigersPizza.py).</p>
+            <p>The main GUI window will appear, allowing customers to place orders or administrators to manage inventory and employee timesheets.</p>
+            <p>Customers can select their desired pizza, customize it, and enter their contact information to place an order.</p>
+            <p>Administrators can view the current inventory, track revenue, and manage employee timesheets.</p>
+            <p>The system provides error messages for invalid inputs and ensures inventory sufficiency before order placement.</p>
+        </section>
+
+        <section id="conclusion">
+            <h2>Conclusion</h2>
+            <p>The Pizza Ordering and Inventory Management System provides an efficient solution for managing pizza orders, inventory, and employee schedules in a restaurant setting. With its user-friendly interface and robust functionalities, it streamlines the ordering process for customers and simplifies inventory and employee management tasks for administrators.</p>
+        </section>
+
+        <p><a href="TermsofServiceAcknowledgment.html"><button class="btn">Download Now!</button></a></p>
+
+    </main>
+
+    <footer>
+        <p>&copy; 2024 Forestview Technologies. All rights reserved.</p>
+        <a href="Terms & conditons.html" class="footer-link">Terms and Conditions</a>
+    </footer>
+
+</body>
+
+</html>
