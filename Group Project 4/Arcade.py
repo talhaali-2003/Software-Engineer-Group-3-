@@ -4,10 +4,20 @@ import random
 import time     
 
 
+import tkinter as tk
+from tkinter import messagebox
+import random
+
+# Global variables
+tickets = 0
+
+# Function for the click game
 def launch_click_game():
     def object_clicked(event, obj_color):
+        global tickets
         if obj_color == 'blue':
             score[0] += 1
+            tickets += 1
         elif obj_color == 'red':
             score[0] -= 1
         score_label.config(text=f"Score: {score[0]}")
@@ -42,6 +52,12 @@ def launch_click_game():
 
     show_object()  # Start showing objects
 
+# Function to update tickets
+def cash_out():
+    global tickets
+    messagebox.showinfo("Cash Out", f"You have cashed out {tickets} tickets!")
+    tickets = 0
+
 # Main application window
 arcade_window = tk.Tk()
 arcade_window.title("Arcade UI")
@@ -50,8 +66,12 @@ arcade_window.config(bg="#333333")
 # Customize button appearance
 btn_style = {"bg": "#555555", "fg": "#ffffff", "font": ("Helvetica", 16), "width": 25, "height": 2}
 
-# Button to play the "click game"
+# Buttons for different games
 btn_game1 = tk.Button(arcade_window, text="Play Click Game", command=launch_click_game, **btn_style)
-btn_game1.pack(pady=20)
+btn_game1.pack(pady=10)
+
+# Cash out button
+btn_cash_out = tk.Button(arcade_window, text="Cash Out Tickets", command=cash_out, **btn_style)
+btn_cash_out.pack(pady=10)
 
 arcade_window.mainloop()
