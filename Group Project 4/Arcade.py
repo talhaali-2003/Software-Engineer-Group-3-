@@ -1,6 +1,15 @@
 import tkinter as tk
 from tkinter import Canvas, messagebox, simpledialog
 import random
+import pygame
+
+# Initialize pygame mixer
+pygame.mixer.init()
+
+# Load sound effects
+click_sound = pygame.mixer.Sound("Group Project 4/click_sound.wav")
+win_sound = pygame.mixer.Sound("Group Project 4/win_sound.wav")
+lose_sound = pygame.mixer.Sound("Group Project 4/lose_sound.wav")
 
 # Global variables
 tickets = 0
@@ -12,10 +21,13 @@ def launch_click_game():
         if obj_color == 'blue':
             score[0] += 1
             tickets += 1
+            win_sound.play()  # Play win sound
         elif obj_color == 'red':
             score[0] -= 1
+            lose_sound.play()  # Play lose sound
         score_label.config(text=f"Score: {score[0]}", fg='#00ff00')  # Adjust text color
         canvas.delete("object")
+        click_sound.play()  # Play click sound
 
     def show_object():
         canvas.delete("object")
@@ -71,11 +83,13 @@ def letter_guessing_game(score_label):
 
         if user_guess == target_letter:
             messagebox.showinfo("Letter Guessing Game", "Congratulations! You guessed the letter.")
+            win_sound.play()  # Play win sound
             break
         elif user_guess < target_letter:
             messagebox.showinfo("Letter Guessing Game", "Too low! Try again.")
         else:
             messagebox.showinfo("Letter Guessing Game", "Too high! Try again.")
+            lose_sound.play()  # Play lose sound
         score[0] += 1
         score_label.config(text=f"Score: {score[0]}", fg='#00ff00')  # Adjust text color
 
@@ -97,11 +111,13 @@ def dice_guessing_game(score_label):
 
         if user_guess == target_number:
             messagebox.showinfo("Dice Guessing Game", "Congratulations! You guessed the correct number.")
+            win_sound.play()  # Play win sound
             break
         elif user_guess < target_number:
             messagebox.showinfo("Dice Guessing Game", "Too low! Try again.")
         else:
             messagebox.showinfo("Dice Guessing Game", "Too high! Try again.")
+            lose_sound.play()  # Play lose sound
         score[0] += 1
         score_label.config(text=f"Score: {score[0]}", fg='#00ff00')  # Adjust text color
 
