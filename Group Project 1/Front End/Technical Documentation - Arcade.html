@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Personal Finance Tracker - Technical Documentation</title>
+<style>
+    /* General styles */
+    body {
+        font-family: Arial, sans-serif;
+        font-size: 16px;
+        line-height: 1.5;
+        color: #333;
+        background-color: #F5F5F5;
+        display: flex;
+        flex-direction: column;
+        min-height: 100vh;
+    }
+
+    header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        background-color: #333;
+        color: #fff;
+        padding: 1rem;
+        box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+    }
+
+    nav ul {
+        display: flex;
+        list-style: none;
+        margin: 0;
+        padding: 0;
+    }
+
+    nav ul li:hover {
+        background-color: #ffffff;
+        color: #222222;
+        transition: all 0.3s ease-in-out;
+    }
+
+    nav li {
+        margin: 0 10px;
+    }
+
+    nav a {
+        color: #fff;
+        text-decoration: none;
+        font-size: 18px;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+    }
+
+    nav a:hover {
+        background-color: #555;
+    }
+
+    main {
+        flex-grow: 1;
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 2rem;
+    }
+
+    section {
+        margin-bottom: 2rem;
+    }
+
+    h1,
+    h2 {
+        font-size: 3rem;
+        font-weight: bold;
+        margin-bottom: 1rem;
+    }
+
+    p {
+        margin-bottom: 1rem;
+    }
+
+    ul {
+        list-style: disc;
+        margin-left: 1rem;
+        margin-bottom: 1rem;
+    }
+
+    footer {
+        position: relative;
+        background-color: #333;
+        color: #fff;
+        padding: 1rem;
+        text-align: center;
+        bottom: 0;
+        width: 100%;
+    }
+
+    .footer-link {
+        color: #3498db;
+    }
+
+    .footer-link:hover {
+        color: #5aa6f7;
+    }
+
+    @media only screen and (min-width: 768px) {
+        .column-layout {
+            display: flex;
+            flex-direction: row;
+            flex-wrap: wrap;
+            justify-content: space-between;
+        }
+
+        .column {
+            width: calc(50% - 10px);
+        }
+    }
+
+    .service-box {
+        background-color: #f1f1f1;
+        border: 1px solid #ddd;
+        padding: 20px;
+        margin-bottom: 20px;
+        transition: all 0.3s ease;
+    }
+
+    .service-box h2 {
+        font-size: 1.5rem;
+        margin-top: 0;
+        margin-bottom: 10px;
+    }
+
+    .service-box:hover {
+        background-color: #ddd;
+        border-color: #aaa;
+        transform: translateY(-5px);
+    }
+
+    @media only screen and (max-width: 767px) {
+        .column {
+            width: 100%;
+            margin-bottom: 20px;
+        }
+    }
+
+    header img {
+        width: 100px;
+        height: auto;
+    }
+
+    .logo-container {
+        float: left;
+        margin-right: 10px;
+    }
+
+    .logo-container img {
+        position: top center;
+        margin-right: 20px;
+        z-index: 9998;
+        max-height: 40px;
+        width: auto;
+        mix-blend-mode: multiply;
+        filter: contrast(1.2);
+    }
+
+    h1 {
+        display: inline-block;
+        vertical-align: middle;
+        margin-left: 0px;
+    }
+
+    .btn {
+        background-color: gray;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        padding: 10px 20px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
+        margin: 10px;
+        cursor: pointer;
+        transition: background-color 0.3s;
+    }
+
+    .btn:hover {
+        background-color: lightgrey;
+    }
+
+    /* Additional styles for the provided HTML content */
+    h3 {
+        font-size: 2rem;
+        font-weight: bold;
+        margin-bottom: 1rem;
+    }
+
+    code {
+        font-family: 'Courier New', Courier, monospace;
+        background-color: #f1f1f1;
+        padding: 2px 5px;
+        border-radius: 3px;
+    }
+
+    .technical-doc {
+        background-color: #fff;
+        padding: 20px;
+        margin-bottom: 20px;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+    }
+
+    .feature-list {
+        margin-bottom: 20px;
+    }
+
+    .feature-list h4 {
+        font-size: 1.2rem;
+        font-weight: bold;
+        margin-bottom: 10px;
+    }
+
+    .feature-list ul {
+        list-style: square;
+        margin-left: 1rem;
+    }
+
+    .game-description {
+        margin-bottom: 20px;
+    }
+</style>
+</head>
+<body>
+<header>
+    <div class="logo-container">
+        <img src="logo.png" alt="Logo">
+    </div>
+    <nav>
+        <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="Projects.html">Projects</a></li>
+        </ul>
+    </nav>
+</header>
+
+<main>
+    <div class="technical-doc">
+        <h1>Technical Documentation: Arcade UI</h1>
+        <section>
+            <h2>Code Overview</h2>
+            <p>The Arcade UI is a graphical user interface (GUI) application developed using Python's Tkinter library. It offers a collection of interactive games for users to enjoy. The application features various games, including a click game, letter guessing game, dice guessing game, and Simon game.</p>
+        </section>
+
+        <section>
+            <h2>Features</h2>
+            <div class="feature-list">
+                <div class="game-description">
+                    <h4>Click Game:</h4>
+                    <p>The Click Game presents users with a delightful opportunity to interact with objects on the screen. Key features include:</p>
+                    <ul>
+                        <li>Object Interaction: Users can click on randomly generated objects, distinguished by their vibrant blue or red colors.</li>
+                        <li>Score and Tickets: Clicking on blue objects increments the player's score and ticket count, fostering a sense of achievement. Conversely, clicking on red objects deducts points.</li>
+                        <li>Sound Effects: The game comes alive with immersive sound effects, providing auditory cues for each interaction.</li>
+                    </ul>
+                    <p><strong>Expansion Ideas:</strong></p>
+                    <ul>
+                        <li>Leaderboard: Introduce a leaderboard to showcase top scores achieved by players, fostering healthy competition.</li>
+                        <li>Power-Ups: Inject excitement by incorporating power-ups that offer temporary advantages or bonus points.</li>
+                    </ul>
+                </div>
+
+                <div class="game-description">
+                    <h4>Letter Guessing Game:</h4>
+                    <p>In the Letter Guessing Game, users are tasked with guessing a letter from a predetermined range. Key features include:</p>
+                    <ul>
+                        <li>User Engagement: Users engage by guessing letters within a predefined range, receiving immediate feedback on their attempts.</li>
+                        <li>Scoring Mechanism: Each correct guess boosts the player's score, encouraging persistence and strategic thinking.</li>
+                        <li>Sound Feedback: Sound effects accompany every guess, enriching the gaming experience.</li>
+                    </ul>
+                    <p><strong>Expansion Ideas:</strong></p>
+                    <ul>
+                        <li>Difficulty Levels: Enhance replayability by implementing varying difficulty levels, catering to players of different skill levels.</li>
+                        <li>Multiplayer Mode: Foster social interaction with a multiplayer mode, allowing users to compete in real-time letter guessing challenges.</li>
+                    </ul>
+                </div>
+
+                <!-- Add descriptions for Dice Guessing Game and Simon Game following the same structure -->
+            </div>
+        </section>
+
+        <section>
+            <h2>User Interaction</h2>
+            <p><strong>Game Instructions:</strong></p>
+            <ul>
+                <li>Each game interface provides comprehensive instructions, elucidating rules, controls, and scoring mechanisms, ensuring users can engage effortlessly.</li>
+            </ul>
+            <p><strong>Visual Enhancements:</strong></p>
+            <ul>
+                <li>Dynamic visual effects and animations captivate users, augmenting the gaming experience and immersing them in a visually stimulating environment.</li>
+            </ul>
+        </section>
+
+        <section>
+            <h2>Usage</h2>
+            <h3>Playing Games:</h3>
+            <ul>
+                <li>Click on the respective buttons to start playing each game.</li>
+                <li>Follow the instructions provided within each game interface.</li>
+            </ul>
+            <h3>Cashing Out Tickets:</h3>
+            <ul>
+                <li>Click on the "Cash Out Tickets" button to see how many tickets you've earned.</li>
+                <li>Resets the ticket count after cashing out.</li>
+            </ul>
+        </section>
+
+        <section>
+            <h2>Dependencies</h2>
+            <h3>Tkinter Library</h3>
+            <ul>
+                <li>GUI Creation: Describe how the Tkinter library is used to create the graphical user interface (GUI) of the Arcade UI application. It provides essential components such as buttons, labels, and frames for building interactive elements.</li>
+                <li>Cross-Platform Compatibility: Highlight Tkinter's cross-platform compatibility, ensuring that the Arcade UI can be used on various operating systems, including Windows, macOS, and Linux.</li>
+                <li>Ease of Use: Emphasize Tkinter's simplicity and ease of use, making it accessible to both novice and experienced developers for designing intuitive user interfaces.</li>
+            </ul>
+            <h3>Pygame Library</h3>
+            <ul>
+                <li>Sound Effects: Explain how the pygame library is utilized to incorporate sound effects into the Arcade UI application. It enables the playback of audio files to enhance the gaming experience.</li>
+                <li>Audio Management: Describe pygame's capabilities for managing audio resources, including loading, playing, and controlling sound effects, ensuring smooth integration with the user interface and gameplay.</li>
+                <li>Performance Optimization: Mention pygame's efficiency in handling multimedia tasks, such as audio playback, without compromising performance, resulting in a seamless gaming experience for users.</li>
+            </ul>
+        </section>
+
+        <p><a href="TermsofServiceAcknowledgment.html"><button class="btn">Download Now!</button></a></p>
+    </div>
+</main>
+
+<footer>
+    <p>&copy; 2024 Personal Finance Tracker. All rights reserved. | <a href="#" class="footer-link">Privacy Policy</a> | <a href="#" class="footer-link">Terms of Service</a></p>
+</footer>
+</body>
+</html>
