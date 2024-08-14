@@ -1,2 +1,2 @@
 # SEGroup 3
-We are group 3 in Software Engineering CSC 4110
+Created a multitude of applications over the course of a semester connected to a course at Wayne State University!
